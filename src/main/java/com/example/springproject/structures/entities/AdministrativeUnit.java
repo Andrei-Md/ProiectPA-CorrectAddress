@@ -26,11 +26,11 @@ public class AdministrativeUnit implements Serializable {
      * @param row the csv row
      * @return an administrative unit
      */
-    public AdministrativeUnit(String[] row) {
+    public AdministrativeUnit(String[] row,String alternateNamesDelimiter) {
         this.id = row[0];
         this.name = row[1];
         this.asciiName = row[2];
-        this.alternateNames = parseList(row[3]);
+        this.alternateNames = parseList(row[3],alternateNamesDelimiter);
         this.latitude = Double.parseDouble(row[4]);
         this.longitude = Double.parseDouble(row[5]);
         this.countryCode = row[6];
@@ -41,10 +41,10 @@ public class AdministrativeUnit implements Serializable {
      * @param string the string
      * @return a list of string
      */
-    private List<String> parseList(String string) {
+    private List<String> parseList(String string, String alternateNamesDelimiter) {
         if(string.isEmpty())
             return new ArrayList<>();
-        String delimiter = ",";
+        String delimiter = alternateNamesDelimiter;
         String[] splitString = string.split(delimiter);
         return new ArrayList<>(Arrays.asList(splitString));
     }
