@@ -19,13 +19,13 @@ public class AdmStructures implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        //TODO create internal structures
         if(args.getSourceArgs().length>0){
             if(args.getSourceArgs()[0].equalsIgnoreCase("serialize")) {
                 AdministrativeUnitUtil.serializeAdministrativeHierarchy(AdministrativeUnitUtil.ADMINISTRATIVE_UNIT_SERIALIZE_PATH);
             }
         }
 
+        //create internal structures
         log.info("Initializing Internal Administrative Structures");
         administrativeHierarchy = AdministrativeUnitUtil.loadAdministrativeHierarchy(AdministrativeUnitUtil.ADMINISTRATIVE_UNIT_SERIALIZE_PATH);
     }

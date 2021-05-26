@@ -18,10 +18,10 @@ public class AdministrativeUnitUtil {
     private final static String FILE_PATH_CITIES = "resources/in/cities.csv";
     private final static char HIERARCHY_DELIM = ',';
     private final static char CITIES_DELIM = '|';
-    private final static char ALTERNATE_NAMES_DELIM = ',';
+    private final static String ALTERNATE_NAMES_DELIM = ",";
 
     private final static List<String> rootList = new ArrayList() {{
-        add("798549");
+        add("798549"); //Romania
     }};
 
     /**
@@ -102,7 +102,7 @@ public class AdministrativeUnitUtil {
         List<String[]> csvRows = readFromCsv(FILE_PATH_CITIES, CITIES_DELIM);
         Map<String, AdministrativeUnit> administrativeUnitMapAll = new HashMap<>();
         for (String[] row : csvRows) {
-            AdministrativeUnit administrativeUnit = new AdministrativeUnit(row);
+            AdministrativeUnit administrativeUnit = new AdministrativeUnit(row, ALTERNATE_NAMES_DELIM);
             administrativeUnitMapAll.put(administrativeUnit.getId(), administrativeUnit);
         }
 
