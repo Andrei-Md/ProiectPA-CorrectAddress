@@ -7,6 +7,9 @@ import com.example.springproject.algorithm.search.FuzzySearch;
 import com.example.springproject.algorithm.search.SearchInterface;
 import com.example.springproject.model.Address;
 
+import com.example.springproject.structures.AdmStructures;
+import com.example.springproject.structures.entities.AdministrativeHierarchy;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +25,8 @@ public class CorrectAddress {
         List<ScoreAddress> correctAddressList;
         correctAddressList = parseAddress(scoreAddress);
         correctAddressList = searchAddress(correctAddressList);
+
+        AdministrativeHierarchy administrativeHierarchy = AdmStructures.getAdministrativeHierarchy();
 
         return convertListScoreAddress(correctAddressList);
     }
