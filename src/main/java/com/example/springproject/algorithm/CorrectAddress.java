@@ -1,12 +1,12 @@
 package com.example.springproject.algorithm;
 
-import com.example.springproject.algorithm.model.ScoreAddress;
+import com.example.springproject.algorithm.Scoring.AddressScoring;
+import com.example.springproject.algorithm.Scoring.BasicScoring;
+import com.example.springproject.algorithm.model.BasicAddress;
+import com.example.springproject.algorithm.model.ScoredAddress;
 import com.example.springproject.algorithm.parser.AddressParser;
 import com.example.springproject.algorithm.parser.ParserInterface;
-import com.example.springproject.algorithm.search.FuzzySearch;
-import com.example.springproject.algorithm.search.SearchInterface;
 import com.example.springproject.model.Address;
-
 import com.example.springproject.structures.AdmStructures;
 import com.example.springproject.structures.entities.AdministrativeHierarchy;
 
@@ -14,39 +14,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CorrectAddress {
-    private Address address;
+    private BasicAddress basicAddress;
 
-    public CorrectAddress(Address address){
-        this.address = address;
-    }
+//    public CorrectAddress(){
+//
+//    }
 
-    public List<Address> correctAddress(){
-        ScoreAddress scoreAddress = new ScoreAddress(address);
-        List<ScoreAddress> correctAddressList;
-        correctAddressList = parseAddress(scoreAddress);
-        correctAddressList = searchAddress(correctAddressList);
-
+    public List<Address> correctAddress(Address address) {
         AdministrativeHierarchy administrativeHierarchy = AdmStructures.getAdministrativeHierarchy();
+        this.basicAddress = parseAddress(address);
+        List<ScoredAddress> scoredAddressesList;
+        scoredAddressesList = scoringAddress(this.basicAddress);
 
-        return convertListScoreAddress(correctAddressList);
+        List<Address> correctedAddressList = convertScoredAdressToAdress(scoredAddressesList);
+        return correctedAddressList;
     }
 
-    private  List<ScoreAddress> searchAddress(List<ScoreAddress> scoreAddressList){
-        SearchInterface searchInterface = new FuzzySearch();
-        return searchInterface.search(scoreAddressList);
-    }
-
-    private List<ScoreAddress> parseAddress(ScoreAddress addressList){
+    private BasicAddress parseAddress(Address addressList) {
         ParserInterface parserInterface = new AddressParser();
         return parserInterface.parseAddress(addressList);
     }
 
-    private List<Address> convertListScoreAddress(List<ScoreAddress> scoreAddressList){
-        List<Address> correctAddressList = new ArrayList<>();
-        for (ScoreAddress scoreAddress: scoreAddressList) {
-            correctAddressList.add(scoreAddress.convertScoreAddress());
+    private List<ScoredAddress> scoringAddress(BasicAddress basicAddress) {
+        AddressScoring addressScoring = new BasicScoring();
+
+        return addressScoring.addressScoring(basicAddress);
+    }
+
+    private List<Address> convertScoredAdressToAdress(List<ScoredAddress> scoredAddressList) {
+        List<Address> addressList = new ArrayList<>();
+        for (ScoredAddress scoredAddress : scoredAddressList) {
+            Address address = new Address(scoredAddress.getCountry().getAdministrativeUnit().getName(),
+                    scoredAddress.getState().getAdministrativeUnit().getName(),
+                    scoredAddress.getCity().getAdministrativeUnit().getName(),
+                    scoredAddress.getStreetLine().getAdministrativeUnit().getName(),
+                    scoredAddress.getPostalCode().getAdministrativeUnit().getName());
+            addressList.add(address);
         }
-        return  correctAddressList;
+        return addressList;
     }
 
 }
