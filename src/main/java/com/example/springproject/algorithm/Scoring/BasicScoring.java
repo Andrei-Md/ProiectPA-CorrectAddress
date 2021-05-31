@@ -1,7 +1,7 @@
 package com.example.springproject.algorithm.Scoring;
 
 import com.example.springproject.algorithm.model.BasicAddress;
-import com.example.springproject.algorithm.model.Score;
+import com.example.springproject.algorithm.model.FieldEnum;
 import com.example.springproject.algorithm.model.ScoredAddress;
 import com.example.springproject.structures.AdmStructures;
 import com.example.springproject.structures.entities.AdministrativeHierarchy;
@@ -21,14 +21,14 @@ public class BasicScoring implements AddressScoring {
 
     private ScoredAddress stupidBasicConvert(BasicAddress basicAddress) {
         ScoredAddress scoredAddress = new ScoredAddress();
-        scoredAddress.setCountry(basicAddress.getFields().get(Score.Country.id()).get(0));
-        scoredAddress.setState(basicAddress.getFields().get(Score.State.id()).get(0));
-        scoredAddress.setCity(basicAddress.getFields().get(Score.City.id()).get(0));
-        if(!basicAddress.getFields().get(Score.PostalCode.id()).isEmpty()){
-            scoredAddress.setPostalCode(basicAddress.getFields().get(Score.PostalCode.id()).get(0));
+        scoredAddress.setCountry(basicAddress.getFields().get(FieldEnum.Country.id()).get(0));
+        scoredAddress.setState(basicAddress.getFields().get(FieldEnum.State.id()).get(0));
+        scoredAddress.setCity(basicAddress.getFields().get(FieldEnum.City.id()).get(0));
+        if(!basicAddress.getFields().get(FieldEnum.PostalCode.id()).isEmpty()){
+            scoredAddress.setPostalCode(basicAddress.getFields().get(FieldEnum.PostalCode.id()).get(0));
         }
-        if(!basicAddress.getFields().get(Score.StreetLine.id()).isEmpty()){
-            scoredAddress.setStreetLine(basicAddress.getFields().get(Score.StreetLine.id()).get(0));
+        if(!basicAddress.getFields().get(FieldEnum.StreetLine.id()).isEmpty()){
+            scoredAddress.setStreetLine(basicAddress.getFields().get(FieldEnum.StreetLine.id()).get(0));
         }
 //        scoredAddress.setCountry(basicAddress.getCountry().get(0));
 //        scoredAddress.setState(basicAddress.getState().get(0));
