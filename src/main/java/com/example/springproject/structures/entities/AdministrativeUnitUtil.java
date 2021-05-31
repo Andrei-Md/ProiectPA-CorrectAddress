@@ -148,13 +148,16 @@ public class AdministrativeUnitUtil {
      * @return a string with the corrected name
      */
     private static String parseString(AdministrativeUnit currentAdmUnit, String[] administrativeNameList) {
-        String admUnitAsciiName = currentAdmUnit.getAsciiName();
+        String admUnitParsedName = currentAdmUnit.getAsciiName();
         for (String admName : administrativeNameList) {
             if(currentAdmUnit.getAsciiName().toLowerCase().startsWith(admName)){
-                admUnitAsciiName = admUnitAsciiName.substring(admName.length()+1);
+                admUnitParsedName = admUnitParsedName.substring(admName.length()+1);
+                currentAdmUnit.setParsedName(admUnitParsedName);
+                return admUnitParsedName;
             }
         }
-        return admUnitAsciiName;
+        currentAdmUnit.setParsedName(admUnitParsedName);
+        return admUnitParsedName;
     }
 
 
