@@ -12,6 +12,7 @@ public class AdministrativeUnit implements Serializable {
     private String id;
     private String name;
     private String asciiName;
+    private String parsedName;
     private List<String> alternateNames = new ArrayList<>();
     private Double latitude;
     private Double longitude;
