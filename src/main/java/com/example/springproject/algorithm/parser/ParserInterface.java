@@ -1,12 +1,13 @@
 package com.example.springproject.algorithm.parser;
 
 
-import com.example.springproject.algorithm.model.ScoreAddress;
+import com.example.springproject.algorithm.model.BasicAddress;
+import com.example.springproject.model.Address;
 
 import java.util.List;
 
 public interface ParserInterface {
 
-    public List<ScoreAddress> parseAddress(ScoreAddress address);
+    public BasicAddress parseAddress(Address address);
 
 }

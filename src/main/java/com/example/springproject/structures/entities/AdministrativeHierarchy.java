@@ -14,6 +14,7 @@ public class AdministrativeHierarchy implements Serializable {
     private Map<String, AdministrativeUnit> administrativeUnitMap;
     private SetMultimap<String, String> administrativeUnitHierarchy;
 
+//    private SetMultimap<String, AdministrativeUnit>
     public AdministrativeHierarchy() {
         administrativeUnitMap = new TreeMap<>();
     }

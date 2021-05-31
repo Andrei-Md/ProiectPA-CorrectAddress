@@ -15,8 +15,8 @@ public class AddressController {
     @PostMapping
     public ResponseEntity<List<Address>> postController(@RequestBody Address address){
 
-        CorrectAddress correctAddress = new CorrectAddress(address);
-        List<Address> correctAddressList = correctAddress.correctAddress();
+        CorrectAddress correctAddress = new CorrectAddress();
+        List<Address> correctAddressList = correctAddress.correctAddress(address);
         return new ResponseEntity<>(correctAddressList,HttpStatus.OK);
     }
 
