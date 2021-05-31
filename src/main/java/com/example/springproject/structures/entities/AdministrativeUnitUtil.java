@@ -7,9 +7,12 @@ import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
+import org.apache.commons.codec.language.Soundex;
 
 import java.io.*;
 import java.util.*;
+
+import static com.example.springproject.algorithm.ScoreUtil.NO_UNIT_ADM_MAX;
 
 public class AdministrativeUnitUtil {
 
@@ -19,6 +22,8 @@ public class AdministrativeUnitUtil {
     private final static char HIERARCHY_DELIM = ',';
     private final static char CITIES_DELIM = '|';
     private final static String ALTERNATE_NAMES_DELIM = ",";
+    private final static String[] administrativeName = {"comuna","municipiul","oras"};
+
 
     private final static List<String> rootList = new ArrayList() {{
         add("798549"); //Romania
@@ -88,15 +93,70 @@ public class AdministrativeUnitUtil {
     public static void serializeAdministrativeHierarchy(String filePath) {
         AdministrativeHierarchy administrativeHierarchy = new AdministrativeHierarchy(filePath);
 
+        //Create Administrative Unit Hierarchy
         SetMultimap<String, String> administrativeUnitHierarchy = createAdministrativeUnitHierarchy();
         administrativeHierarchy.setAdministrativeUnitHierarchy(administrativeUnitHierarchy);
 
+        //Create Administrative Unit Map
         Map<String, AdministrativeUnit> administrativeUnitMap = createAdministrativeUnitMap(administrativeHierarchy);
         administrativeHierarchy.setAdministrativeUnitMap(administrativeUnitMap);
+
+        //Create Soundex Unit Map
+        List<SetMultimap<String, AdministrativeUnit>> soundexUnitsMapList = createSoundexUnitsMapList(administrativeUnitMap);
+        administrativeHierarchy.setSoundexUnitsMapList(soundexUnitsMapList);
 
         administrativeHierarchy.setPath(filePath);
         saveAdministrativeHierarchy(administrativeHierarchy);
     }
+
+    private static List<SetMultimap<String, AdministrativeUnit>> createSoundexUnitsMapList(Map<String, AdministrativeUnit> administrativeUnitMap) {
+        List<SetMultimap<String, AdministrativeUnit>> soundexUnitsMapList = new ArrayList<>();
+
+        for (int i = 0; i < NO_UNIT_ADM_MAX; i++) {
+            soundexUnitsMapList.add(HashMultimap.create());
+        }
+
+        Soundex soundex = new Soundex();
+        createCodedMultimap(administrativeUnitMap, soundexUnitsMapList, soundex);
+
+        return soundexUnitsMapList;
+    }
+
+    /**
+     * create multimap where the key is the encoded administrative unit name
+     *
+     * @param administrativeUnitMap the administrative unit map
+     * @param soundexUnitsMapList   the encoded administrative unit map based on level
+     * TODO add also alternative name but need soundex for diacritics
+     */
+    private static void createCodedMultimap(Map<String, AdministrativeUnit> administrativeUnitMap, List<SetMultimap<String, AdministrativeUnit>> soundexUnitsMapList, Soundex soundex) {
+        if (administrativeUnitMap.isEmpty())
+            return;
+        for (String key : administrativeUnitMap.keySet()) {
+            AdministrativeUnit currentAdmUnit = administrativeUnitMap.get(key);
+            String name = parseString(currentAdmUnit, administrativeName);
+            String code = soundex.encode(name);
+            soundexUnitsMapList.get(currentAdmUnit.getLevel()).put(code, currentAdmUnit);
+            createCodedMultimap(currentAdmUnit.getSubDivision(), soundexUnitsMapList, soundex);
+        }
+
+    }
+
+    /**
+     * method used to parse the administrative units name and substract comun starting names like "comuna","municipiu"...
+     * @param currentAdmUnit current administrative unit
+     * @return a string with the corrected name
+     */
+    private static String parseString(AdministrativeUnit currentAdmUnit, String[] administrativeNameList) {
+        String admUnitAsciiName = currentAdmUnit.getAsciiName();
+        for (String admName : administrativeNameList) {
+            if(currentAdmUnit.getAsciiName().toLowerCase().startsWith(admName)){
+                admUnitAsciiName = admUnitAsciiName.substring(admName.length()+1);
+            }
+        }
+        return admUnitAsciiName;
+    }
+
 
     private static Map<String, AdministrativeUnit> createAdministrativeUnitMap(AdministrativeHierarchy administrativeHierarchy) {
         List<String[]> csvRows = readFromCsv(FILE_PATH_CITIES, CITIES_DELIM);
@@ -157,6 +217,4 @@ public class AdministrativeUnitUtil {
         }
         return administrativeUnitHierarchy;
     }
-
-
 }

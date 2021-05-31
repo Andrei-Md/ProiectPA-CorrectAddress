@@ -1,25 +1,29 @@
 package com.example.springproject.algorithm.parser;
 
 import com.example.springproject.algorithm.model.BasicAddress;
+import com.example.springproject.algorithm.model.Score;
 import com.example.springproject.algorithm.model.ScoredAdmUnit;
-import com.example.springproject.algorithm.search.FuzzySearch;
-import com.example.springproject.algorithm.search.SearchInterface;
+import com.example.springproject.algorithm.search.admUnitSearch.AdmUnitSearchInterface;
+import com.example.springproject.algorithm.search.admUnitSearch.SoundexAdmUnitSearch;
 import com.example.springproject.model.Address;
-import com.example.springproject.structures.entities.AdministrativeUnit;
+import com.google.common.collect.SetMultimap;
 
 import java.util.List;
+
+import static com.example.springproject.algorithm.ScoreUtil.BONUS_SAME_POSITION;
 
 public class AddressParser implements ParserInterface {
 
     private BasicAddress basicAddress;
 
-    public AddressParser(){
+
+    public AddressParser() {
         basicAddress = new BasicAddress();
     }
 
     @Override
     public BasicAddress parseAddress(Address address) {
-        address.setCountry("Parser");
+//        address.setCountry("Parser");
         this.basicAddress = parse(address);
 
         return basicAddress;
@@ -27,31 +31,38 @@ public class AddressParser implements ParserInterface {
 
     /**
      * parse each string and transform it in Scored Administrative Unit
+     *
      * @param address
      * @return
      */
     private BasicAddress parse(Address address) {
         //parse TODO
+        //also have an unknown field for locations which are parsed in streeline field or postal code field
 
-        this.basicAddress.addCountryAll(searchAdmUnit(address.getCountry()));
-        this.basicAddress.addCityAll(searchAdmUnit(address.getCity()));
-        this.basicAddress.addStateAll(searchAdmUnit(address.getState()));
-        this.basicAddress.addPostalCodeAll(searchAdmUnit(address.getPostalCode()));
-        this.basicAddress.addStreetLineAll(searchAdmUnit(address.getStreetLine()));
-        this.basicAddress.addUnknownAll(searchAdmUnit(address.getCountry()));
+//        this.basicAddress.addCountryAll(searchAdmUnit(address.getCountry()));
+//        this.basicAddress.addCityAll(searchAdmUnit(address.getCity()));
+//        this.basicAddress.addStateAll(searchAdmUnit(address.getState()));
+//        this.basicAddress.addPostalCodeAll(searchAdmUnit(address.getPostalCode()));
+//        this.basicAddress.addStreetLineAll(searchAdmUnit(address.getStreetLine()));
+//        this.basicAddress.addUnknownAll(searchAdmUnit(address.getCountry()));
+        basicAddress.addAllAdmUnit(searchAdmUnit(address.getCountry(), Score.Country.id()));
+        basicAddress.addAllAdmUnit(searchAdmUnit(address.getCity(), Score.City.id()));
+        basicAddress.addAllAdmUnit(searchAdmUnit(address.getState(), Score.State.id()));
+//        basicAddress.addAll(searchAdmUnit(address.getPostalCode(), Score.PostalCode.id()));
+//        basicAddress.addAll(searchAdmUnit(address.getStreetLine(), Score.StreetLine.id()));
 
         return this.basicAddress;
     }
 
     /**
-     * TODO transform in new class
+     * method used to search the string for administrative unit and return directly the scoredAdministrative unit
+     *
+     * @param entity the unit Name
+     * @param id     the id of the unit so it can be applied a bonus if something is found on same position
+     * @return the list of multimap representing the similar administrative units found on diferents fields (Country, City, State)
      */
-    private List<ScoredAdmUnit> searchAdmUnit(String entity){
-        SearchInterface searchInterface = new FuzzySearch();
-
-
-//        String[] row = {"686579","Comuna Albac","Comuna Albac","","46.45246","22.95027","RO"};
-//        return new ScoredAdmUnit(new AdministrativeUnit(row,","),0);
-        return searchInterface.search(entity);
+    private List<List<ScoredAdmUnit>> searchAdmUnit(String entity, int id) {
+        AdmUnitSearchInterface admUnitSearchInterface = new SoundexAdmUnitSearch();
+        return admUnitSearchInterface.search(entity, id, BONUS_SAME_POSITION);
     }
 }

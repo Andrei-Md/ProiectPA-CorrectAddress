@@ -4,6 +4,8 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.SetMultimap;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -13,23 +15,32 @@ public class AdministrativeHierarchy implements Serializable {
     private String path;
     private Map<String, AdministrativeUnit> administrativeUnitMap;
     private SetMultimap<String, String> administrativeUnitHierarchy;
+    private List<SetMultimap<String, AdministrativeUnit>> soundexUnitsMapList;
 
-//    private SetMultimap<String, AdministrativeUnit>
     public AdministrativeHierarchy() {
         administrativeUnitMap = new TreeMap<>();
+        this.administrativeUnitHierarchy = HashMultimap.create();
+        this.soundexUnitsMapList = new ArrayList<>();
     }
 
     public AdministrativeHierarchy(String path) {
         this.administrativeUnitMap = new TreeMap<>();
         this.administrativeUnitHierarchy = HashMultimap.create();
+        this.soundexUnitsMapList = new ArrayList<>();
         this.path = path;
     }
 
+    /**
+     * copy
+     * @param administrativeHierarchy entity to copy
+     */
     public AdministrativeHierarchy(AdministrativeHierarchy administrativeHierarchy) {
         this.path = administrativeHierarchy.getPath();
 
         this.administrativeUnitHierarchy = HashMultimap.create(administrativeHierarchy.getAdministrativeUnitHierarchy());
         this.administrativeUnitMap = new TreeMap<>(administrativeHierarchy.getAdministrativeUnitMap());
+        this.soundexUnitsMapList = administrativeHierarchy.getSoundexUnitsMapList();
+
     }
 
     public Map<String, AdministrativeUnit> getAdministrativeUnitMap() {
@@ -55,5 +66,21 @@ public class AdministrativeHierarchy implements Serializable {
     public void setPath(String path) {
         this.path = path;
     }
+
+    public List<SetMultimap<String, AdministrativeUnit>> getSoundexUnitsMapList() {
+        List<SetMultimap<String, AdministrativeUnit>> returnSoundexUnitsMapList = new ArrayList<>();
+        for (SetMultimap<String, AdministrativeUnit> map : this.soundexUnitsMapList) {
+            returnSoundexUnitsMapList.add(HashMultimap.create(map));
+        }
+        return returnSoundexUnitsMapList;
+    }
+
+    public void setSoundexUnitsMapList(List<SetMultimap<String, AdministrativeUnit>> soundexUnitsMapList) {
+        this.soundexUnitsMapList = new ArrayList<>();
+        for (SetMultimap<String, AdministrativeUnit> map : soundexUnitsMapList) {
+            this.soundexUnitsMapList.add(HashMultimap.create(map));
+        }
+    }
+
 
 }
