@@ -3,20 +3,25 @@ package com.example.springproject.algorithm.model;
 import com.example.springproject.structures.entities.AdministrativeUnit;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 public class ScoredAdmUnit {
 
     AdministrativeUnit administrativeUnit;
-    private int countryScore;
-    private int stateScore;
-    private int cityScore;
-    private int id;
+    private List<Score> scores;
+    private int uniqueIdentifier;
 
 
-    public ScoredAdmUnit(AdministrativeUnit administrativeUnit,int id) {
+    public ScoredAdmUnit(AdministrativeUnit administrativeUnit,int uniqueIdentifier) {
         this.administrativeUnit = administrativeUnit;
-        countryScore = 0;
-        stateScore = 0;
-        cityScore = 0;
+        scores = Score.getList();
+        this.uniqueIdentifier = uniqueIdentifier;
+    }
+
+
+    public void setScores(int id, int bonus){
+        scores.get(id).addScore(bonus);
     }
 }

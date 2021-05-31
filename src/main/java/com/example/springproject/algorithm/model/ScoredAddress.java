@@ -17,4 +17,5 @@ public class ScoredAddress {
     private int postalCodeScore;
     private int streetLineScore;
     private int total;
+
 }
