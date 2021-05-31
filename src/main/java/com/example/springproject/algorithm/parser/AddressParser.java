@@ -1,12 +1,11 @@
 package com.example.springproject.algorithm.parser;
 
 import com.example.springproject.algorithm.model.BasicAddress;
-import com.example.springproject.algorithm.model.Score;
+import com.example.springproject.algorithm.model.FieldEnum;
 import com.example.springproject.algorithm.model.ScoredAdmUnit;
 import com.example.springproject.algorithm.search.admUnitSearch.AdmUnitSearchInterface;
 import com.example.springproject.algorithm.search.admUnitSearch.SoundexAdmUnitSearch;
 import com.example.springproject.model.Address;
-import com.google.common.collect.SetMultimap;
 
 import java.util.List;
 
@@ -45,9 +44,9 @@ public class AddressParser implements ParserInterface {
 //        this.basicAddress.addPostalCodeAll(searchAdmUnit(address.getPostalCode()));
 //        this.basicAddress.addStreetLineAll(searchAdmUnit(address.getStreetLine()));
 //        this.basicAddress.addUnknownAll(searchAdmUnit(address.getCountry()));
-        basicAddress.addAllAdmUnit(searchAdmUnit(address.getCountry(), Score.Country.id()));
-        basicAddress.addAllAdmUnit(searchAdmUnit(address.getCity(), Score.City.id()));
-        basicAddress.addAllAdmUnit(searchAdmUnit(address.getState(), Score.State.id()));
+        basicAddress.addAllAdmUnit(searchAdmUnit(address.getCountry(), FieldEnum.Country.id()));
+        basicAddress.addAllAdmUnit(searchAdmUnit(address.getCity(), FieldEnum.City.id()));
+        basicAddress.addAllAdmUnit(searchAdmUnit(address.getState(), FieldEnum.State.id()));
 //        basicAddress.addAll(searchAdmUnit(address.getPostalCode(), Score.PostalCode.id()));
 //        basicAddress.addAll(searchAdmUnit(address.getStreetLine(), Score.StreetLine.id()));
 

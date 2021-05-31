@@ -62,4 +62,18 @@ public class AdministrativeUnit implements Serializable {
     public int hashCode() {
         return Objects.hash(id, name, asciiName, alternateNames, latitude, longitude, countryCode);
     }
+
+    @Override
+    public String toString() {
+        return "AdmUnit{" +
+                "asciiName='" + asciiName + '\'' +
+                ", id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", parsedName='" + parsedName + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", countryCode='" + countryCode + '\'' +
+                ", alternateNames=" + alternateNames +
+                '}';
+    }
 }
