@@ -12,7 +12,7 @@ import java.util.List;
 
 import static com.example.springproject.algorithm.ScoreUtil.*;
 
-public class SoundexAdmUnitSearch implements AdmUnitSearchInterface {
+public class EncoderAdmUnitSearch implements AdmUnitSearchInterface {
 
     @Override
     public List<List<ScoredAdmUnit>> search(StringEncoder stringEncoder, List<SetMultimap<String, AdministrativeUnit>> encodedUnitsMapList, String entityName, int id, int bonus) {

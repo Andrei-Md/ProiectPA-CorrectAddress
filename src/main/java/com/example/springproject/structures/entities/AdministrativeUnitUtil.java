@@ -140,7 +140,7 @@ public class AdministrativeUnitUtil {
      * @param administrativeUnitMap the administrative unit map
      * @param encodedUnitsMapList   the encoded administrative unit map based on level
      * @param stringEncoder         the string encoder
-     *                              TODO add also alternative name but need soundex for diacritics
+     *                              TODO add also alternative name but need encoder for diacritics
      */
     private static void createCodedMultimap(Map<String, AdministrativeUnit> administrativeUnitMap, List<SetMultimap<String, AdministrativeUnit>> encodedUnitsMapList, StringEncoder stringEncoder) {
         if (administrativeUnitMap.isEmpty())
@@ -162,7 +162,6 @@ public class AdministrativeUnitUtil {
                 }
             }
         }
-
     }
 
 

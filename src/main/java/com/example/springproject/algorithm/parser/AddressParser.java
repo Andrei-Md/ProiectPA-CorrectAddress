@@ -4,7 +4,7 @@ import com.example.springproject.algorithm.model.BasicAddress;
 import com.example.springproject.algorithm.model.FieldEnum;
 import com.example.springproject.algorithm.model.ScoredAdmUnit;
 import com.example.springproject.algorithm.search.admUnitSearch.AdmUnitSearchInterface;
-import com.example.springproject.algorithm.search.admUnitSearch.SoundexAdmUnitSearch;
+import com.example.springproject.algorithm.search.admUnitSearch.EncoderAdmUnitSearch;
 import com.example.springproject.model.Address;
 import com.example.springproject.structures.AdmStructures;
 import com.example.springproject.structures.entities.AdministrativeUnit;
@@ -86,17 +86,16 @@ public class AddressParser implements ParserInterface {
      * @return
      */
     private BasicAddress searchEntity(BasicAddress basicAddress, StringEncoder stringEncoder, List<SetMultimap<String, AdministrativeUnit>> encodedUnitsMapList) {
-        //Sondex
         //for each administrative unit
         for (int i = 0; i < NO_UNIT_ADM_MAX; i++) {
             for (String admUnitName : basicAddress.getNameFields().get(i)) {
-                this.basicAddress.addAllAdmUnit(searchAdmUnit(stringEncoder, encodedUnitsMapList, admUnitName, i, new SoundexAdmUnitSearch()));
+                this.basicAddress.addAllAdmUnit(searchAdmUnit(stringEncoder, encodedUnitsMapList, admUnitName, i, new EncoderAdmUnitSearch()));
             }
         }
 
         //treat unknown cases
         for (String admUnitName : basicAddress.getNameFields().get(FieldEnum.Unknown.id())) {
-            this.basicAddress.addAllAdmUnit(searchAdmUnit(stringEncoder, encodedUnitsMapList, admUnitName, MAX_NO_FIELD, new SoundexAdmUnitSearch())); //Max_no_field to be sure no bonus is added
+            this.basicAddress.addAllAdmUnit(searchAdmUnit(stringEncoder, encodedUnitsMapList, admUnitName, MAX_NO_FIELD, new EncoderAdmUnitSearch())); //Max_no_field to be sure no bonus is added
         }
         return this.basicAddress;
     }
