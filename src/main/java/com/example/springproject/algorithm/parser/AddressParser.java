@@ -7,6 +7,7 @@ import com.example.springproject.algorithm.search.admUnitSearch.AdmUnitSearchInt
 import com.example.springproject.algorithm.search.admUnitSearch.SoundexAdmUnitSearch;
 import com.example.springproject.model.Address;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.springproject.algorithm.ScoreUtil.*;
@@ -14,7 +15,7 @@ import static com.example.springproject.algorithm.ScoreUtil.*;
 public class AddressParser implements ParserInterface {
 
     private BasicAddress basicAddress;
-
+    private List<String> namesList;
 
     public AddressParser() {
         basicAddress = new BasicAddress();
@@ -45,10 +46,30 @@ public class AddressParser implements ParserInterface {
         this.basicAddress.addNameField(address.getCity(),FieldEnum.City.id());
 
         //treat unknown
-        this.basicAddress.addUnknown(address.getStreetLine());
-        this.basicAddress.addUnknown(address.getPostalCode());
+        this.basicAddress.addNameField(address.getStreetLine(),FieldEnum.Unknown.id());
+        this.basicAddress.addNameField(address.getPostalCode(),FieldEnum.Unknown.id());
 
+        //add all String to a list
+        this.basicAddress.setAllAdmUnitNames(createAllNamesList(this.basicAddress.getNameFields()));
+        //fill nameList
         return this.basicAddress;
+    }
+
+    /**
+     * method to create a list of all Names
+     * @param nameFields - list of list of administrative unit names
+     * @return one list of all administrative unit names
+     */
+    private List<String> createAllNamesList(List<List<String>> nameFields) {
+        List<String> allNames = new ArrayList<>();
+        //add administrative Unis names
+        for (int i = 0; i < NO_UNIT_ADM_MAX; i++){
+            allNames.addAll(nameFields.get(i));
+        }
+        //add unknown names
+        allNames.addAll(nameFields.get(FieldEnum.Unknown.id()));
+
+        return allNames;
     }
 
     /**
@@ -66,7 +87,7 @@ public class AddressParser implements ParserInterface {
             }
         }
         //treat unknown cases
-        for (String admUnitName : basicAddress.getUnknown()) {
+        for (String admUnitName : basicAddress.getNameFields().get(FieldEnum.Unknown.id())) {
             this.basicAddress.addAllAdmUnit(searchAdmUnitSoundex(admUnitName, MAX_NO_FIELD)); //Max_no_field to be sure no bonus is added
         }
         return this.basicAddress;

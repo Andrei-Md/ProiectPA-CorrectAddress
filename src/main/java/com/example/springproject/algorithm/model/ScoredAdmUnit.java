@@ -42,17 +42,16 @@ public class ScoredAdmUnit {
                 '}';
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ScoredAdmUnit)) return false;
         ScoredAdmUnit that = (ScoredAdmUnit) o;
-        return Objects.equals(administrativeUnit, that.administrativeUnit);
+        return Objects.equals(administrativeUnit, that.administrativeUnit) && Objects.equals(scores, that.scores);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(administrativeUnit);
+        return Objects.hash(administrativeUnit, scores);
     }
 }

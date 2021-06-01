@@ -5,7 +5,8 @@ public enum FieldEnum {
     State(1),
     City(2),
     PostalCode(3),
-    StreetLine(4);
+    StreetLine(4),
+    Unknown(5);
 
     private final int id;
 
