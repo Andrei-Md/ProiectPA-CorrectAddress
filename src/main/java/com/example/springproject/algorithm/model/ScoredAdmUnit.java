@@ -28,6 +28,10 @@ public class ScoredAdmUnit {
         scores.set(id, bonus);
     }
 
+    public void addToScore(int id, int bonus){
+        scores.set(id,scores.get(id) + bonus);
+    }
+
     @Override
     public String toString() {
         return "ScoredAdmUnit{" +

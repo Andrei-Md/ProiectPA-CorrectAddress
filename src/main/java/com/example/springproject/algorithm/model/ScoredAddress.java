@@ -18,4 +18,22 @@ public class ScoredAddress {
     private int streetLineScore;
     private int total;
 
+    public void setScoreBasedOnLevel(int level, ScoredAdmUnit scoredAdmUnit,int score){
+        if(level == 0){
+            this.setCountry(scoredAdmUnit);
+            this.setCountryScore(score);
+        }
+        if(level == 1){
+            this.setState(scoredAdmUnit);
+            this.setStateScore(score);
+        }
+        if(level == 2){
+            this.setCity(scoredAdmUnit);
+            this.setCityScore(score);
+        }
+    }
+
+    public void computeTotal(){
+        this.total = countryScore + cityScore + stateScore;
+    }
 }

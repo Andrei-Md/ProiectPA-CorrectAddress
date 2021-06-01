@@ -1,38 +1,69 @@
 package com.example.springproject.algorithm.model;
 
+import com.example.springproject.structures.entities.AdministrativeUnit;
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.SetMultimap;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static com.example.springproject.algorithm.ScoreUtil.MAX_NO_FIELD;
 import static com.example.springproject.algorithm.ScoreUtil.NO_UNIT_ADM_MAX;
 
 @Data
 public class BasicAddress {
-    private List<ScoredAdmUnit> country = new ArrayList<>();
-    private List<ScoredAdmUnit> state = new ArrayList<>();
-    private List<ScoredAdmUnit> city = new ArrayList<>();
-    private List<ScoredAdmUnit> postalCode = new ArrayList<>(); //TODO maybe PostalCodeUnit with postal code state city .... only
-    private List<ScoredAdmUnit> streetLine = new ArrayList<>();
+
     //    private List<ScoredAdmUnit> unknown = new ArrayList<>();
-    private List<List<ScoredAdmUnit>> fields;
+    private List<List<ScoredAdmUnit>> administrationFields;
+    private List<SetMultimap<String, AdministrativeUnit>> administrationFieldsMap;
+
+    private List<List<String>> nameFields;
+    private List<String> unknown;
+
 
     public BasicAddress() {
-        fields = new ArrayList<>();
+        administrationFields = new ArrayList<>();
         for (int i = 0; i < MAX_NO_FIELD; i++) {
-            fields.add(new ArrayList<>());
+            administrationFields.add(new ArrayList<>());
         }
+        administrationFieldsMap = initAdministrationFieldsMap();
+        nameFields = initNameFields();
+        unknown = new ArrayList<>();
+    }
+
+    private List<SetMultimap<String, AdministrativeUnit>> initAdministrationFieldsMap() {
+        administrationFieldsMap = new ArrayList<>();
+        for (int i = 0; i < MAX_NO_FIELD; i++) {
+            administrationFieldsMap.add(HashMultimap.create());
+        }
+        return administrationFieldsMap;
+    }
+
+    private List<List<String>> initNameFields(){
+        List<List<String>> retNameFields = new ArrayList<>();
+        for (int i = 0; i < MAX_NO_FIELD; i++) {
+            retNameFields.add(new ArrayList<>());
+        }
+        return retNameFields;
     }
 
     public void addAllAdmUnit(List<List<ScoredAdmUnit>> searchAdmUnitLists) {
         for (int i = 0; i < NO_UNIT_ADM_MAX; i++) {
-            fields.get(i).addAll(searchAdmUnitLists.get(i));
+            administrationFields.get(i).addAll(searchAdmUnitLists.get(i));
         }
 //        for (List<ScoredAdmUnit> scoredAdmUnitList : searchAdmUnitLists) {
 //
 //        }
+    }
+
+    public void addNameField(String nameField, Integer id){
+        nameFields.get(id).add(nameField);
+    }
+
+    public void addUnknown(String nameField){
+        unknown.add(nameField);
     }
 
 //    public void addCountry(ScoredAdmUnit scoredAdmUnit) {
