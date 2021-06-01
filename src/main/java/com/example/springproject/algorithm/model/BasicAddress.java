@@ -20,8 +20,8 @@ public class BasicAddress {
     private List<Set<ScoredAdmUnit>> administrationFields;
     private List<SetMultimap<String, AdministrativeUnit>> administrationFieldsMap; //todo maybe needed
 
+    private List<String> allAdmUnitNames;
     private List<List<String>> nameFields;
-    private List<String> unknown;
 
     public BasicAddress() {
         administrationFields = new ArrayList<>();
@@ -30,7 +30,6 @@ public class BasicAddress {
         }
         administrationFieldsMap = initAdministrationFieldsMap();
         nameFields = initNameFields();
-        unknown = new ArrayList<>();
     }
 
     private List<SetMultimap<String, AdministrativeUnit>> initAdministrationFieldsMap() {
@@ -41,7 +40,7 @@ public class BasicAddress {
         return administrationFieldsMap;
     }
 
-    private List<List<String>> initNameFields(){
+    private List<List<String>> initNameFields() {
         List<List<String>> retNameFields = new ArrayList<>();
         for (int i = 0; i < MAX_NO_FIELD; i++) {
             retNameFields.add(new ArrayList<>());
@@ -51,6 +50,7 @@ public class BasicAddress {
 
     /**
      * method used to add
+     *
      * @param searchAdmUnitLists
      */
     public void addAllAdmUnit(List<List<ScoredAdmUnit>> searchAdmUnitLists) {
@@ -59,12 +59,8 @@ public class BasicAddress {
         }
     }
 
-    public void addNameField(String nameField, Integer id){
+    public void addNameField(String nameField, Integer id) {
         nameFields.get(id).add(nameField);
-    }
-
-    public void addUnknown(String nameField){
-        unknown.add(nameField);
     }
 
 }
