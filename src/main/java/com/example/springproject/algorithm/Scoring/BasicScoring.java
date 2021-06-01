@@ -12,6 +12,7 @@ import com.example.springproject.structures.entities.AdministrativeUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.example.springproject.algorithm.ScoreUtil.NO_UNIT_ADM_MAX;
@@ -26,31 +27,31 @@ public class BasicScoring implements AddressScoring {
         return scoredAddressesList;
     }
 
-    private ScoredAddress stupidBasicConvert(BasicAddress basicAddress) {
-        ScoredAddress scoredAddress = new ScoredAddress();
-        scoredAddress.setCountry(basicAddress.getAdministrationFields().get(FieldEnum.Country.id()).get(0));
-        scoredAddress.setState(basicAddress.getAdministrationFields().get(FieldEnum.State.id()).stream().max(Comparator.comparing((x) -> x.getScores().get(1))).orElse(null));
-        scoredAddress.setCity(basicAddress.getAdministrationFields().get(FieldEnum.City.id()).stream().max(Comparator.comparing((x) -> x.getScores().get(2))).orElse(null));
-        if (!basicAddress.getAdministrationFields().get(FieldEnum.PostalCode.id()).isEmpty()) {
-            scoredAddress.setPostalCode(basicAddress.getAdministrationFields().get(FieldEnum.PostalCode.id()).get(0));
-        }
-        if (!basicAddress.getAdministrationFields().get(FieldEnum.StreetLine.id()).isEmpty()) {
-            scoredAddress.setStreetLine(basicAddress.getAdministrationFields().get(FieldEnum.StreetLine.id()).get(0));
-        }
-
-//        scoredAddress.setCountry(basicAddress.getCountry().get(0));
-//        scoredAddress.setState(basicAddress.getState().get(0));
-//        scoredAddress.setCity(basicAddress.getCity().get(0));
-//        scoredAddress.setPostalCode(basicAddress.getPostalCode().get(0));
-//        scoredAddress.setStreetLine(basicAddress.getStreetLine().get(0));
-        return scoredAddress;
-    }
+//    private ScoredAddress stupidBasicConvert(BasicAddress basicAddress) {
+//        ScoredAddress scoredAddress = new ScoredAddress();
+//        scoredAddress.setCountry(basicAddress.getAdministrationFields().get(FieldEnum.Country.id()).get(0));
+//        scoredAddress.setState(basicAddress.getAdministrationFields().get(FieldEnum.State.id()).stream().max(Comparator.comparing((x) -> x.getScores().get(1))).orElse(null));
+//        scoredAddress.setCity(basicAddress.getAdministrationFields().get(FieldEnum.City.id()).stream().max(Comparator.comparing((x) -> x.getScores().get(2))).orElse(null));
+//        if (!basicAddress.getAdministrationFields().get(FieldEnum.PostalCode.id()).isEmpty()) {
+//            scoredAddress.setPostalCode(basicAddress.getAdministrationFields().get(FieldEnum.PostalCode.id()).get(0));
+//        }
+//        if (!basicAddress.getAdministrationFields().get(FieldEnum.StreetLine.id()).isEmpty()) {
+//            scoredAddress.setStreetLine(basicAddress.getAdministrationFields().get(FieldEnum.StreetLine.id()).get(0));
+//        }
+//
+////        scoredAddress.setCountry(basicAddress.getCountry().get(0));
+////        scoredAddress.setState(basicAddress.getState().get(0));
+////        scoredAddress.setCity(basicAddress.getCity().get(0));
+////        scoredAddress.setPostalCode(basicAddress.getPostalCode().get(0));
+////        scoredAddress.setStreetLine(basicAddress.getStreetLine().get(0));
+//        return scoredAddress;
+//    }
 
     private ScoredAddress scoreAddress(BasicAddress basicAddress) {
         StringSearch stringSearch = new StringSearch();
         List<ScoredAddress> scoredAddresses = new ArrayList<>();
         for (int i = NO_UNIT_ADM_MAX - 1; i >= 0; i--) {
-            List<ScoredAdmUnit> scoredAdmUnitList = basicAddress.getAdministrationFields().get(i);
+            List<ScoredAdmUnit> scoredAdmUnitList = new ArrayList(basicAddress.getAdministrationFields().get(i));
             for (int admIndex = 0; admIndex < scoredAdmUnitList.size(); admIndex++) {
                 ScoredAdmUnit scoredAdmUnit = scoredAdmUnitList.get(admIndex);
                 AdministrativeUnit administrativeUnit = scoredAdmUnit.getAdministrativeUnit();
@@ -69,7 +70,7 @@ public class BasicScoring implements AddressScoring {
                    // basicAddress.getFields().get(superDivision.getLevel()).get(max).addToScore(superDivision.getLevel(), (int) (50 - maxDistance * 10));
                     //basicAddress.getFields().get(currentAdministrativeUnit.getLevel()).get(admIndex).addToScore(currentAdministrativeUnit.getLevel(), (int) (50 - maxDistance * 10));
                     if(minDistance != 5){
-                        scoredAddress.setScoreBasedOnLevel(superDivision.getLevel(), basicAddress.getAdministrationFields().get(superDivision.getLevel()).get(max), basicAddress.getAdministrationFields().get(superDivision.getLevel()).get(max).getScores().get(superDivision.getLevel()) + (int) ((20 - minDistance * 5)));
+                      //  scoredAddress.setScoreBasedOnLevel(superDivision.getLevel(), scoredAdmUnitList.get(superDivision.getLevel()).get(max), basicAddress.getAdministrationFields().get(superDivision.getLevel()).get(max).getScores().get(superDivision.getLevel()) + (int) ((20 - minDistance * 5)));
                     }else {
                         //scoredAddress.setScoreBasedOnLevel(superDivision.getLevel(), superDivision, 0);
                     }
