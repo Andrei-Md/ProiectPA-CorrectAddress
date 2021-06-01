@@ -6,6 +6,7 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import static com.example.springproject.algorithm.ScoreUtil.MAX_NO_FIELD;
 
@@ -28,6 +29,10 @@ public class ScoredAdmUnit {
         scores.set(id, bonus);
     }
 
+    public void addToScore(int id, int bonus){
+        scores.set(id,scores.get(id) + bonus);
+    }
+
     @Override
     public String toString() {
         return "ScoredAdmUnit{" +
@@ -35,5 +40,19 @@ public class ScoredAdmUnit {
                 ", uniqueIdentifier=" + uniqueIdentifier +
                 ", " + administrativeUnit +
                 '}';
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ScoredAdmUnit that = (ScoredAdmUnit) o;
+        return Objects.equals(administrativeUnit, that.administrativeUnit);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(administrativeUnit);
     }
 }

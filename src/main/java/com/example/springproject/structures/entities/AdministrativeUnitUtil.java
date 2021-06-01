@@ -22,7 +22,7 @@ public class AdministrativeUnitUtil {
     private final static char HIERARCHY_DELIM = ',';
     private final static char CITIES_DELIM = '|';
     private final static String ALTERNATE_NAMES_DELIM = ",";
-    private final static String[] administrativeName = {"comuna","municipiul","oras"};
+    private final static String[] administrativeName = {"comuna","municipiul","oras","jud."};
 
 
     private final static List<String> rootList = new ArrayList() {{

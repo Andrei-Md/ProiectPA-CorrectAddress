@@ -19,4 +19,13 @@ public class StringSearch {
         }
         return foundWords;
     }
+
+    public List<Double> getDamerauLevenshteinDistances(String wordToFind,List<String> stringsList){
+        List<Double> foundDistances = new ArrayList<>();
+        Damerau damerau = new Damerau();
+        for (String word: stringsList) {
+            foundDistances.add(damerau.distance(wordToFind,word));
+        }
+        return foundDistances;
+    }
 }
