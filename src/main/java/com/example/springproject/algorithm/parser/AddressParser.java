@@ -44,7 +44,7 @@ public class AddressParser implements ParserInterface {
      */
     private BasicAddress parse(Address address) {
         //parse TODO
-        //also have an unknown field for locations which are parsed in streeline field or postal code field
+        //also have an unknown field for locations which are parsed in street line field or postal code field
 
         //treat administrative units
         this.basicAddress.addNameField(address.getCountry(), FieldEnum.Country.id());
