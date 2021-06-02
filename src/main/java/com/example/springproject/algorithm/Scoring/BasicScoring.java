@@ -8,11 +8,12 @@ import com.example.springproject.algorithm.search.stringSearch.StringSearch;
 import com.example.springproject.structures.AdmStructures;
 import com.example.springproject.structures.entities.AdministrativeHierarchy;
 import com.example.springproject.structures.entities.AdministrativeUnit;
+import org.apache.commons.collections.ArrayStack;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.example.springproject.algorithm.ScoreUtil.NO_UNIT_ADM_MAX;
+import static com.example.springproject.algorithm.ScoreUtil.*;
 
 public class BasicScoring implements AddressScoring {
     AdministrativeHierarchy administrativeHierarchy = AdmStructures.getAdministrativeHierarchy();
@@ -45,37 +46,80 @@ public class BasicScoring implements AddressScoring {
 //    }
 
 
-
     private ScoredAddress scoreAddress(BasicAddress basicAddress) {
         StringSearch stringSearch = new StringSearch();
         Queue<ScoredAddress> scoredAddresses = new PriorityQueue<>(Comparator.comparing(ScoredAddress::getTotal).reversed());
-        List<ScoredAdmUnit> scoredAdmUnitList = new ArrayList(basicAddress.getAdministrationFields().get(NO_UNIT_ADM_MAX - 1));
-        for (ScoredAdmUnit scoredAdmUnit : scoredAdmUnitList) {
+        List<List<ScoredAdmUnit>> administrationFields = new ArrayList<>();
+        for (int i = 0; i < NO_UNIT_ADM_MAX; i++) {
+            administrationFields.add(new ArrayList<>(basicAddress.getAdministrationFields().get(i)));
+        }
+        for (ScoredAdmUnit scoredAdmUnit : administrationFields.get(NO_UNIT_ADM_MAX - 1)) {
             AdministrativeUnit administrativeUnit = scoredAdmUnit.getAdministrativeUnit();
             ScoredAddress scoredAddress = new ScoredAddress();
             while (administrativeUnit.getSuperDivision() != null) {
                 AdministrativeUnit superDivision = administrativeUnit.getSuperDivision();
                 List<ScoredAdmUnit> scoredAdmUnits = new ArrayList<>(basicAddress.getAdministrationFields().get(superDivision.getLevel()));
                 List<Double> distances = stringSearch.getDamerauLevenshteinDistances(superDivision.getAsciiName(), scoredAdmUnits.stream().map((x) -> x.getAdministrativeUnit().getAsciiName()).collect(Collectors.toList()));
-                double minDistance = Double.MAX_VALUE;
-                for (Double distance : distances) {
-                    if (distance < minDistance) {
-                        minDistance = distance;
+                int minDistance = Integer.MAX_VALUE;
+                if (distances.size() != 0) {
+                    minDistance = getMinDistance(distances);
+                    int bonus = 0;
+                    if(uniqueIdentifierExists(scoredAddress,administrationFields.get(superDivision.getLevel()).get(minDistance).getUniqueIdentifier())){
+                        bonus = (int) ((float) (1 / (distances.get(minDistance) + 1)) * BONUS_SAME_POSITION) - 5;
+                    } else{
+                        bonus = (int) ((float) (1 / (distances.get(minDistance) + 1)) * BONUS_SAME_POSITION);
                     }
+                    if (distances.get(minDistance) == 0) {
+                        scoredAddress.setScoreBasedOnLevel(superDivision.getLevel(), new ScoredAdmUnit(superDivision, administrationFields.get(superDivision.getLevel()).get(minDistance).getUniqueIdentifier()), administrationFields.get(superDivision.getLevel()).get(minDistance).getScores().get(superDivision.getLevel()) + bonus);
+                    } else {
+                        scoredAddress.setScoreBasedOnLevel(superDivision.getLevel(), new ScoredAdmUnit(superDivision, scoredAdmUnit.getUniqueIdentifier()), bonus);
+                    }
+                } else {
+                    scoredAddress.setScoreBasedOnLevel(superDivision.getLevel(), new ScoredAdmUnit(superDivision, scoredAdmUnit.getUniqueIdentifier()), (int) ((float) (1 / (minDistance + 1)) * BONUS_SAME_POSITION));
                 }
-//                 basicAddress.getFields().get(superDivision.getLevel()).get(max).addToScore(superDivision.getLevel(), (int) (50 - maxDistance * 10));
-//                 basicAddress.getFields().get(currentAdministrativeUnit.getLevel()).get(admIndex).addToScore(currentAdministrativeUnit.getLevel(), (int) (50 - maxDistance * 10));
-
-                scoredAddress.setScoreBasedOnLevel(superDivision.getLevel(), new ScoredAdmUnit(superDivision, scoredAdmUnit.getUniqueIdentifier()), (int) ((float) (1 / (minDistance + 1)) * 20));
-
                 administrativeUnit = administrativeUnit.getSuperDivision();
             }
-            scoredAddress.setScoreBasedOnLevel(scoredAdmUnit.getAdministrativeUnit().getLevel(), scoredAdmUnit, (int) (scoredAdmUnit.getScores().get(scoredAdmUnit.getAdministrativeUnit().getLevel()) + (1 / ((stringSearch.getDamerauLevenshteinDistances(scoredAdmUnit.getAdministrativeUnit().getParsedName(), basicAddress.getNameFields().get(scoredAdmUnit.getAdministrativeUnit().getLevel())).stream().min(Double::compareTo).orElse( Double.MAX_VALUE)) + 1) * 20)));
+            List<Double> distances = stringSearch.getDamerauLevenshteinDistances(scoredAdmUnit.getAdministrativeUnit().getParsedName(), basicAddress.getAllAdmUnitNames());
+            int minDistance = getMinDistance(distances);
+            int bonus;
+            if(uniqueIdentifierExists(scoredAddress,scoredAdmUnit.getUniqueIdentifier())){
+                bonus = (int) ((float) (1 / (distances.get(minDistance) + 1)) * BONUS_SAME_POSITION) - 5;
+            } else{
+                bonus = (int) ((float) (1 / (distances.get(minDistance) + 1)) * BONUS_SAME_POSITION);
+            }
+//            if(scoredAdmUnit.getUniqueIdentifier() == administrationFields.get(scoredAdmUnit.getAdministrativeUnit().getLevel()).get(minDistance).getUniqueIdentifier()){
+//                scoredAddress.setScoreBasedOnLevel(scoredAdmUnit.getAdministrativeUnit().getLevel(), scoredAdmUnit, (scoredAdmUnit.getScores().get(scoredAdmUnit.getAdministrativeUnit().getLevel()) + (1 / (minDistance + 1) * BONUS_INTERCROSSING_POSITION - 10)));
+//            } else{
+            scoredAddress.setScoreBasedOnLevel(scoredAdmUnit.getAdministrativeUnit().getLevel(), scoredAdmUnit, (scoredAdmUnit.getScores().get(scoredAdmUnit.getAdministrativeUnit().getLevel()) + bonus));
+//            }
+//            scoredAddress.setScoreBasedOnLevel(scoredAdmUnit.getAdministrativeUnit().getLevel(), scoredAdmUnit,
+//                    (int) (scoredAddress.getScoreBasedOnLevel(scoredAdmUnit.getAdministrativeUnit().getLevel()) +
+//                            (1 / ((stringSearch.getDamerauLevenshteinDistances(scoredAdmUnit.getAdministrativeUnit().getParsedName(), basicAddress.getNameFields().get(scoredAdmUnit.getAdministrativeUnit().getLevel())).stream().min(Double::compareTo).orElse(Double.MAX_VALUE)) + 1) * BONUS_SAME_POSITION)));
             scoredAddress.computeTotal();
             scoredAddresses.add(scoredAddress);
         }
 //        }
         return scoredAddresses.poll();
+    }
+
+    private boolean uniqueIdentifierExists(ScoredAddress scoredAddress, int uniqueIdentifier) {
+        if(scoredAddress.getCity() != null && scoredAddress.getCity().getUniqueIdentifier() == uniqueIdentifier)
+            return true;
+        if(scoredAddress.getCountry() != null && scoredAddress.getCountry().getUniqueIdentifier() == uniqueIdentifier)
+            return true;
+        if(scoredAddress.getState() != null && scoredAddress.getState().getUniqueIdentifier() == uniqueIdentifier)
+            return true;
+        return false;
+    }
+
+    private int getMinDistance(List<Double> distances) {
+        int minDistance = 0;
+        for (int i = 0; i < distances.size(); i++) {
+            if (distances.get(i) < distances.get(minDistance)) {
+                minDistance = i;
+            }
+        }
+        return minDistance;
     }
 
     private ScoredAddress getBestScoredAddress(List<ScoredAddress> scoredAddresses) {
