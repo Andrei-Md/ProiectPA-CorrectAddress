@@ -21,34 +21,64 @@ public class AdministrativeUnit implements Serializable {
     private int level;
     private Map<String, AdministrativeUnit> subDivision = new TreeMap<>();
 
+
     /**
      * Constructor used to initialize an administrative unit from String list
      *
      * @param row the csv row
      * @return an administrative unit
      */
-    public AdministrativeUnit(String[] row,String alternateNamesDelimiter) {
+    public AdministrativeUnit(String[] row, String alternateNamesDelimiter) {
         this.id = row[0];
         this.name = row[1];
         this.asciiName = row[2];
-        this.alternateNames = parseList(row[3],alternateNamesDelimiter);
+        this.alternateNames = parseList(row[3], alternateNamesDelimiter);
         this.latitude = Double.parseDouble(row[4]);
         this.longitude = Double.parseDouble(row[5]);
         this.countryCode = row[6];
+        this.parsedName = "";
     }
 
     /**
+     * copy Constructor
+     * @param administrativeUnit
+     */
+    public AdministrativeUnit(AdministrativeUnit administrativeUnit){
+        this.id = administrativeUnit.getId();
+        this.name = administrativeUnit.getName();
+        this.asciiName = administrativeUnit.getAsciiName();
+        this.parsedName = administrativeUnit.getParsedName();
+        this.latitude = administrativeUnit.getLatitude();
+        this.longitude = administrativeUnit.getLongitude();
+        this.countryCode = administrativeUnit.getCountryCode();
+        this.level = administrativeUnit.getLevel();
+        this.superDivision = administrativeUnit.getSuperDivision();
+        this.subDivision = administrativeUnit.getSubDivision();
+    }
+
+
+    /**
      * method used to parse a string with a specified delimiter
+     *
      * @param string the string
      * @return a list of string
      */
     private List<String> parseList(String string, String alternateNamesDelimiter) {
-        if(string.isEmpty())
+        if (string.isEmpty())
             return new ArrayList<>();
         String delimiter = alternateNamesDelimiter;
         String[] splitString = string.split(delimiter);
         return new ArrayList<>(Arrays.asList(splitString));
     }
+
+    public AdministrativeUnit getSuperDivision(){
+        return this.superDivision;
+    }
+
+    public Map<String, AdministrativeUnit> getSubDivision(){
+        return this.subDivision;
+    }
+
 
     @Override
     public boolean equals(Object o) {

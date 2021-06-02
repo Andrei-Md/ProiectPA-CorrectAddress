@@ -7,6 +7,9 @@ import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
+import org.apache.commons.codec.EncoderException;
+import org.apache.commons.codec.StringEncoder;
+import org.apache.commons.codec.language.Nysiis;
 import org.apache.commons.codec.language.Soundex;
 
 import java.io.*;
@@ -22,10 +25,11 @@ public class AdministrativeUnitUtil {
     private final static char HIERARCHY_DELIM = ',';
     private final static char CITIES_DELIM = '|';
     private final static String ALTERNATE_NAMES_DELIM = ",";
-    private final static String[] administrativeName = {"comuna","municipiul","oras","jud."};
-
-
-    private final static List<String> rootList = new ArrayList() {{
+    private final static String[] ADMINISTRATIVE_NAME = {"comuna", "municipiul", "oras", "jud."};
+    private final static String ADMINISTRATIVE_UNIT_DELIMITERS = " |-";
+    private final static String[] ADMINISTRATIVE_UNIT_DELIMITER_LIST = {" ", "-"};
+    private final static int ADMINISTRATIVE_UNIT_NAME_MIN_CHARS_NO = 5;
+    private final static List<String> ROOT_LIST = new ArrayList() {{
         add("798549"); //Romania
     }};
 
@@ -102,61 +106,103 @@ public class AdministrativeUnitUtil {
         administrativeHierarchy.setAdministrativeUnitMap(administrativeUnitMap);
 
         //Create Soundex Unit Map
-        List<SetMultimap<String, AdministrativeUnit>> soundexUnitsMapList = createSoundexUnitsMapList(administrativeUnitMap);
+        List<SetMultimap<String, AdministrativeUnit>> soundexUnitsMapList = createEncodedUnitsMapList(administrativeUnitMap, new Soundex());
         administrativeHierarchy.setSoundexUnitsMapList(soundexUnitsMapList);
+
+        //Create Nysiis Unit Map
+        List<SetMultimap<String, AdministrativeUnit>> nysiisUnitsMapList = createEncodedUnitsMapList(administrativeUnitMap, new Nysiis());
+        administrativeHierarchy.setNysiisUnitsMapList(nysiisUnitsMapList);
 
         administrativeHierarchy.setPath(filePath);
         saveAdministrativeHierarchy(administrativeHierarchy);
     }
 
-    private static List<SetMultimap<String, AdministrativeUnit>> createSoundexUnitsMapList(Map<String, AdministrativeUnit> administrativeUnitMap) {
-        List<SetMultimap<String, AdministrativeUnit>> soundexUnitsMapList = new ArrayList<>();
+    /**
+     * method used to create string encoder units map list
+     *
+     * @param administrativeUnitMap map containing all administrative units hierarchy
+     * @param stringEncoder         the string Encoder
+     * @return administrative unit mapped by encoded string for each level
+     */
+    private static List<SetMultimap<String, AdministrativeUnit>> createEncodedUnitsMapList(Map<String, AdministrativeUnit> administrativeUnitMap, StringEncoder stringEncoder) {
+        List<SetMultimap<String, AdministrativeUnit>> encodedUnitsMapList = new ArrayList<>();
 
         for (int i = 0; i < NO_UNIT_ADM_MAX; i++) {
-            soundexUnitsMapList.add(HashMultimap.create());
+            encodedUnitsMapList.add(HashMultimap.create());
         }
-
-        Soundex soundex = new Soundex();
-        createCodedMultimap(administrativeUnitMap, soundexUnitsMapList, soundex);
-
-        return soundexUnitsMapList;
+        createCodedMultimap(administrativeUnitMap, encodedUnitsMapList, stringEncoder);
+        return encodedUnitsMapList;
     }
 
     /**
      * create multimap where the key is the encoded administrative unit name
      *
      * @param administrativeUnitMap the administrative unit map
-     * @param soundexUnitsMapList   the encoded administrative unit map based on level
-     * TODO add also alternative name but need soundex for diacritics
+     * @param encodedUnitsMapList   the encoded administrative unit map based on level
+     * @param stringEncoder         the string encoder
+     *                              TODO add also alternative name but need encoder for diacritics
      */
-    private static void createCodedMultimap(Map<String, AdministrativeUnit> administrativeUnitMap, List<SetMultimap<String, AdministrativeUnit>> soundexUnitsMapList, Soundex soundex) {
+    private static void createCodedMultimap(Map<String, AdministrativeUnit> administrativeUnitMap, List<SetMultimap<String, AdministrativeUnit>> encodedUnitsMapList, StringEncoder stringEncoder) {
         if (administrativeUnitMap.isEmpty())
             return;
         for (String key : administrativeUnitMap.keySet()) {
             AdministrativeUnit currentAdmUnit = administrativeUnitMap.get(key);
-            String name = parseString(currentAdmUnit, administrativeName);
-            String code = soundex.encode(name);
-            soundexUnitsMapList.get(currentAdmUnit.getLevel()).put(code, currentAdmUnit);
-            createCodedMultimap(currentAdmUnit.getSubDivision(), soundexUnitsMapList, soundex);
+            String admUnitName = parseString(currentAdmUnit, ADMINISTRATIVE_NAME);
+            List<String> nameList = parseName(admUnitName, ADMINISTRATIVE_UNIT_DELIMITERS, ADMINISTRATIVE_UNIT_DELIMITER_LIST, ADMINISTRATIVE_UNIT_NAME_MIN_CHARS_NO);
+            String code = null;
+            for (String name : nameList) {
+                try {
+                    code = stringEncoder.encode(name);
+                    AdministrativeUnit newAdmUnit = new AdministrativeUnit(currentAdmUnit);
+                    newAdmUnit.setParsedName(name);
+                    encodedUnitsMapList.get(newAdmUnit.getLevel()).put(code, newAdmUnit);
+                    createCodedMultimap(currentAdmUnit.getSubDivision(), encodedUnitsMapList, stringEncoder);
+                } catch (EncoderException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+    }
 
+
+    /**
+     * method used to parse String by delimiter and return a list of resulted strings
+     *
+     * @param admUnitName administrative unit name
+     * @param delimiters  list of delimiters
+     * @return list of Strings
+     */
+    private static List<String> parseName(String admUnitName, String delimiters, String[] admUnitDelimiterList, Integer chars_no) {
+        List<String> nameList = new ArrayList<>();
+        nameList.add(admUnitName); //add the original name
+        String[] tokens = null;
+        if (Arrays.stream(admUnitDelimiterList).anyMatch(admUnitName::contains)) {
+            tokens = admUnitName.split(delimiters);
+        }
+        if (tokens != null) {
+            for (String name : tokens) {
+                if(name.length() >= chars_no)
+                    nameList.add(name);
+            }
+        }
+        return nameList;
     }
 
     /**
      * method used to parse the administrative units name and substract comun starting names like "comuna","municipiu"...
+     *
      * @param currentAdmUnit current administrative unit
      * @return a string with the corrected name
      */
     private static String parseString(AdministrativeUnit currentAdmUnit, String[] administrativeNameList) {
         String admUnitParsedName = currentAdmUnit.getAsciiName();
         for (String admName : administrativeNameList) {
-            if(currentAdmUnit.getAsciiName().toLowerCase().startsWith(admName)){
-                admUnitParsedName = admUnitParsedName.substring(admName.length()+1);
+            if (currentAdmUnit.getAsciiName().toLowerCase().startsWith(admName)) {
+                admUnitParsedName = admUnitParsedName.substring(admName.length() + 1);
                 currentAdmUnit.setParsedName(admUnitParsedName);
                 return admUnitParsedName;
             }
         }
-        currentAdmUnit.setParsedName(admUnitParsedName);
         return admUnitParsedName;
     }
 
@@ -172,7 +218,7 @@ public class AdministrativeUnitUtil {
         Map<String, AdministrativeUnit> administrativeUnitMap = new TreeMap<>();
 
         //loop through all roots
-        for (String root : rootList) {
+        for (String root : ROOT_LIST) {
             AdministrativeUnit rootAdministrativeUnit = administrativeUnitMapAll.get(root);
             HashSet<String> rootSet = new HashSet<>();
             rootSet.addAll(administrativeHierarchy.getAdministrativeUnitHierarchy().get(root));

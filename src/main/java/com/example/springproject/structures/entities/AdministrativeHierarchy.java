@@ -16,22 +16,26 @@ public class AdministrativeHierarchy implements Serializable {
     private Map<String, AdministrativeUnit> administrativeUnitMap;
     private SetMultimap<String, String> administrativeUnitHierarchy;
     private List<SetMultimap<String, AdministrativeUnit>> soundexUnitsMapList;
+    private List<SetMultimap<String, AdministrativeUnit>> nysiisUnitsMapList;
 
     public AdministrativeHierarchy() {
         administrativeUnitMap = new TreeMap<>();
         this.administrativeUnitHierarchy = HashMultimap.create();
         this.soundexUnitsMapList = new ArrayList<>();
+        this.nysiisUnitsMapList = new ArrayList<>();
     }
 
     public AdministrativeHierarchy(String path) {
         this.administrativeUnitMap = new TreeMap<>();
         this.administrativeUnitHierarchy = HashMultimap.create();
         this.soundexUnitsMapList = new ArrayList<>();
+        this.nysiisUnitsMapList = new ArrayList<>();
         this.path = path;
     }
 
     /**
-     * copy
+     * copy constructor
+     *
      * @param administrativeHierarchy entity to copy
      */
     public AdministrativeHierarchy(AdministrativeHierarchy administrativeHierarchy) {
@@ -40,8 +44,10 @@ public class AdministrativeHierarchy implements Serializable {
         this.administrativeUnitHierarchy = HashMultimap.create(administrativeHierarchy.getAdministrativeUnitHierarchy());
         this.administrativeUnitMap = new TreeMap<>(administrativeHierarchy.getAdministrativeUnitMap());
         this.soundexUnitsMapList = administrativeHierarchy.getSoundexUnitsMapList();
+        this.nysiisUnitsMapList = administrativeHierarchy.getNysiisUnitsMapList();
 
     }
+
 
     public Map<String, AdministrativeUnit> getAdministrativeUnitMap() {
         return new TreeMap<>(administrativeUnitMap);
@@ -82,5 +88,19 @@ public class AdministrativeHierarchy implements Serializable {
         }
     }
 
+    public List<SetMultimap<String, AdministrativeUnit>> getNysiisUnitsMapList() {
+        List<SetMultimap<String, AdministrativeUnit>> returnNysiisUnitsMapList = new ArrayList<>();
+        for (SetMultimap<String, AdministrativeUnit> map : this.nysiisUnitsMapList) {
+            returnNysiisUnitsMapList.add(HashMultimap.create(map));
+        }
+        return returnNysiisUnitsMapList;
+    }
+
+    public void setNysiisUnitsMapList(List<SetMultimap<String, AdministrativeUnit>> nysiisUnitsMapList) {
+        this.nysiisUnitsMapList = new ArrayList<>();
+        for (SetMultimap<String, AdministrativeUnit> map : nysiisUnitsMapList) {
+            this.nysiisUnitsMapList.add(HashMultimap.create(map));
+        }
+    }
 
 }

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import static com.example.springproject.algorithm.ScoreUtil.MAX_NO_FIELD;
 import static com.example.springproject.algorithm.ScoreUtil.NO_UNIT_ADM_MAX;
@@ -55,6 +54,7 @@ public class BasicAddress {
      */
     public void addAllAdmUnit(List<List<ScoredAdmUnit>> searchAdmUnitLists) {
         for (int i = 0; i < NO_UNIT_ADM_MAX; i++) {
+            if (searchAdmUnitLists.isEmpty()) return;
             administrationFields.get(i).addAll(searchAdmUnitLists.get(i));
         }
     }
