@@ -22,6 +22,9 @@ public class StringSearch {
 
     public List<Double> getDamerauLevenshteinDistances(String wordToFind,List<String> stringsList){
         List<Double> foundDistances = new ArrayList<>();
+        if(wordToFind.isEmpty()){
+            return foundDistances;
+        }
         Damerau damerau = new Damerau();
         for (String word: stringsList) {
             foundDistances.add(damerau.distance(wordToFind,word));
