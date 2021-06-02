@@ -33,6 +33,20 @@ public class ScoredAddress {
         }
     }
 
+    public int getScoreBasedOnLevel(int level){
+        if(level == 0){
+            return countryScore;
+        }
+        if(level == 1){
+            return stateScore;
+        }
+        if(level == 2){
+            return cityScore;
+        } else{
+            return 0;
+        }
+    }
+
     public void computeTotal(){
         this.total = countryScore + cityScore + stateScore;
     }
