@@ -26,6 +26,8 @@ public class StringSearch {
         for (String word: stringsList) {
             foundDistances.add(damerau.distance(wordToFind,word));
         }
+        if(foundDistances.size() == 1 && foundDistances.get(0) == wordToFind.length())
+            foundDistances.remove(0);
         return foundDistances;
     }
 }

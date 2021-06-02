@@ -36,4 +36,21 @@ public class ScoredAddress {
     public void computeTotal(){
         this.total = countryScore + cityScore + stateScore;
     }
+
+    @Override
+    public String toString() {
+        return "ScoredAddress{" +
+                "total=" + total +
+                ", country=" + country +
+                ", state=" + state +
+                ", city=" + city +
+                ", postalCode=" + postalCode +
+                ", streetLine=" + streetLine +
+                ", countryScore=" + countryScore +
+                ", stateScore=" + stateScore +
+                ", cityScore=" + cityScore +
+                ", postalCodeScore=" + postalCodeScore +
+                ", streetLineScore=" + streetLineScore +
+                '}';
+    }
 }
