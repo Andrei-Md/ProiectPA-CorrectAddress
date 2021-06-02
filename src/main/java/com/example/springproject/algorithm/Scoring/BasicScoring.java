@@ -56,8 +56,8 @@ public class BasicScoring implements AddressScoring {
             while (administrativeUnit.getSuperDivision() != null) {
                 AdministrativeUnit superDivision = administrativeUnit.getSuperDivision();
                 List<ScoredAdmUnit> scoredAdmUnits = new ArrayList<>(basicAddress.getAdministrationFields().get(superDivision.getLevel()));
-                List<Double> distances = stringSearch.getDamerauLevenshteinDistances(superDivision.getParsedName(), scoredAdmUnits.stream().map((x) -> x.getAdministrativeUnit().getParsedName()).collect(Collectors.toList()));
-                double minDistance = Integer.MAX_VALUE;
+                List<Double> distances = stringSearch.getDamerauLevenshteinDistances(superDivision.getAsciiName(), scoredAdmUnits.stream().map((x) -> x.getAdministrativeUnit().getAsciiName()).collect(Collectors.toList()));
+                double minDistance = Double.MAX_VALUE;
                 for (Double distance : distances) {
                     if (distance < minDistance) {
                         minDistance = distance;
@@ -70,7 +70,7 @@ public class BasicScoring implements AddressScoring {
 
                 administrativeUnit = administrativeUnit.getSuperDivision();
             }
-            scoredAddress.setScoreBasedOnLevel(scoredAdmUnit.getAdministrativeUnit().getLevel(), scoredAdmUnit, (int) (scoredAdmUnit.getScores().get(scoredAdmUnit.getAdministrativeUnit().getLevel()) + (1 / ((stringSearch.getDamerauLevenshteinDistances(scoredAdmUnit.getAdministrativeUnit().getParsedName(), basicAddress.getNameFields().get(scoredAdmUnit.getAdministrativeUnit().getLevel())).stream().min(Double::compareTo).orElse((double) Integer.MAX_VALUE)) + 1) * 20)));
+            scoredAddress.setScoreBasedOnLevel(scoredAdmUnit.getAdministrativeUnit().getLevel(), scoredAdmUnit, (int) (scoredAdmUnit.getScores().get(scoredAdmUnit.getAdministrativeUnit().getLevel()) + (1 / ((stringSearch.getDamerauLevenshteinDistances(scoredAdmUnit.getAdministrativeUnit().getParsedName(), basicAddress.getNameFields().get(scoredAdmUnit.getAdministrativeUnit().getLevel())).stream().min(Double::compareTo).orElse( Double.MAX_VALUE)) + 1) * 20)));
             scoredAddress.computeTotal();
             scoredAddresses.add(scoredAddress);
         }

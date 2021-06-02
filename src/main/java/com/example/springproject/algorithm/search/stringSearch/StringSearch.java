@@ -22,12 +22,13 @@ public class StringSearch {
 
     public List<Double> getDamerauLevenshteinDistances(String wordToFind,List<String> stringsList){
         List<Double> foundDistances = new ArrayList<>();
+        if(wordToFind.isEmpty()){
+            return foundDistances;
+        }
         Damerau damerau = new Damerau();
         for (String word: stringsList) {
             foundDistances.add(damerau.distance(wordToFind,word));
         }
-        if(foundDistances.size() == 1 && foundDistances.get(0) == wordToFind.length())
-            foundDistances.remove(0);
         return foundDistances;
     }
 }
