@@ -9,10 +9,7 @@ import com.example.springproject.structures.AdmStructures;
 import com.example.springproject.structures.entities.AdministrativeHierarchy;
 import com.example.springproject.structures.entities.AdministrativeUnit;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.example.springproject.algorithm.ScoreUtil.NO_UNIT_ADM_MAX;
@@ -26,7 +23,7 @@ public class BasicScoring implements AddressScoring {
         scoredAddressesList.add(scoreAddress(basicAddress));
         return scoredAddressesList;
     }
-
+//
 //    private ScoredAddress stupidBasicConvert(BasicAddress basicAddress) {
 //        ScoredAddress scoredAddress = new ScoredAddress();
 //        scoredAddress.setCountry(basicAddress.getAdministrationFields().get(FieldEnum.Country.id()).get(0));
@@ -47,52 +44,46 @@ public class BasicScoring implements AddressScoring {
 //        return scoredAddress;
 //    }
 
+
+
     private ScoredAddress scoreAddress(BasicAddress basicAddress) {
         StringSearch stringSearch = new StringSearch();
-        List<ScoredAddress> scoredAddresses = new ArrayList<>();
-        for (int i = NO_UNIT_ADM_MAX - 1; i >= 0; i--) {
-            List<ScoredAdmUnit> scoredAdmUnitList = new ArrayList(basicAddress.getAdministrationFields().get(i));
-            for (int admIndex = 0; admIndex < scoredAdmUnitList.size(); admIndex++) {
-                ScoredAdmUnit scoredAdmUnit = scoredAdmUnitList.get(admIndex);
-                AdministrativeUnit administrativeUnit = scoredAdmUnit.getAdministrativeUnit();
-                ScoredAddress scoredAddress = new ScoredAddress();
-                while (administrativeUnit.getSuperDivision() != null) {
-                    AdministrativeUnit superDivision = administrativeUnit.getSuperDivision();
-                    List<Double> distances = stringSearch.getDamerauLevenshteinDistances(superDivision.getAsciiName(), basicAddress.getAdministrationFields().get(superDivision.getLevel()).stream().map((x) -> x.getAdministrativeUnit().getAsciiName()).collect(Collectors.toList()));
-                    int max = 0;
-                    double minDistance = 5;
-                    for (int j = 0; j < distances.size(); j++) {
-                        if (distances.get(j) < 5 && distances.get(j) < minDistance) {
-                            minDistance = distances.get(j);
-                            max = j;
-                        }
+        Queue<ScoredAddress> scoredAddresses = new PriorityQueue<>(Comparator.comparing(ScoredAddress::getTotal).reversed());
+        List<ScoredAdmUnit> scoredAdmUnitList = new ArrayList(basicAddress.getAdministrationFields().get(NO_UNIT_ADM_MAX - 1));
+        for (ScoredAdmUnit scoredAdmUnit : scoredAdmUnitList) {
+            AdministrativeUnit administrativeUnit = scoredAdmUnit.getAdministrativeUnit();
+            ScoredAddress scoredAddress = new ScoredAddress();
+            while (administrativeUnit.getSuperDivision() != null) {
+                AdministrativeUnit superDivision = administrativeUnit.getSuperDivision();
+                List<ScoredAdmUnit> scoredAdmUnits = new ArrayList<>(basicAddress.getAdministrationFields().get(superDivision.getLevel()));
+                List<Double> distances = stringSearch.getDamerauLevenshteinDistances(superDivision.getParsedName(), scoredAdmUnits.stream().map((x) -> x.getAdministrativeUnit().getParsedName()).collect(Collectors.toList()));
+                double minDistance = Integer.MAX_VALUE;
+                for (Double distance : distances) {
+                    if (distance < minDistance) {
+                        minDistance = distance;
                     }
-                   // basicAddress.getFields().get(superDivision.getLevel()).get(max).addToScore(superDivision.getLevel(), (int) (50 - maxDistance * 10));
-                    //basicAddress.getFields().get(currentAdministrativeUnit.getLevel()).get(admIndex).addToScore(currentAdministrativeUnit.getLevel(), (int) (50 - maxDistance * 10));
-                    if(minDistance != 5){
-                      //  scoredAddress.setScoreBasedOnLevel(superDivision.getLevel(), scoredAdmUnitList.get(superDivision.getLevel()).get(max), basicAddress.getAdministrationFields().get(superDivision.getLevel()).get(max).getScores().get(superDivision.getLevel()) + (int) ((20 - minDistance * 5)));
-                    }else {
-                        //scoredAddress.setScoreBasedOnLevel(superDivision.getLevel(), superDivision, 0);
-                    }
-
-
-                    administrativeUnit = administrativeUnit.getSuperDivision();
                 }
-                scoredAddress.setCity(scoredAdmUnit);
-                scoredAddress.setCityScore(scoredAdmUnit.getScores().get(NO_UNIT_ADM_MAX - 1));
-                scoredAddress.computeTotal();
-                scoredAddresses.add(scoredAddress);
+//                 basicAddress.getFields().get(superDivision.getLevel()).get(max).addToScore(superDivision.getLevel(), (int) (50 - maxDistance * 10));
+//                 basicAddress.getFields().get(currentAdministrativeUnit.getLevel()).get(admIndex).addToScore(currentAdministrativeUnit.getLevel(), (int) (50 - maxDistance * 10));
+
+                scoredAddress.setScoreBasedOnLevel(superDivision.getLevel(), new ScoredAdmUnit(superDivision, scoredAdmUnit.getUniqueIdentifier()), (int) ((float) (1 / (minDistance + 1)) * 20));
+
+                administrativeUnit = administrativeUnit.getSuperDivision();
             }
+            scoredAddress.setScoreBasedOnLevel(scoredAdmUnit.getAdministrativeUnit().getLevel(), scoredAdmUnit, (int) (scoredAdmUnit.getScores().get(scoredAdmUnit.getAdministrativeUnit().getLevel()) + (1 / ((stringSearch.getDamerauLevenshteinDistances(scoredAdmUnit.getAdministrativeUnit().getParsedName(), basicAddress.getNameFields().get(scoredAdmUnit.getAdministrativeUnit().getLevel())).stream().min(Double::compareTo).orElse((double) Integer.MAX_VALUE)) + 1) * 20)));
+            scoredAddress.computeTotal();
+            scoredAddresses.add(scoredAddress);
         }
-        return getBestScoredAddress(scoredAddresses);
+//        }
+        return scoredAddresses.poll();
     }
 
-    private ScoredAddress getBestScoredAddress(List<ScoredAddress> scoredAddresses){
+    private ScoredAddress getBestScoredAddress(List<ScoredAddress> scoredAddresses) {
         ScoredAddress maxScoredAddress = new ScoredAddress();
-        int maxScore = 0 ;
-        for (ScoredAddress scoredAddress:
-             scoredAddresses) {
-            if(scoredAddress.getTotal() > maxScore){
+        int maxScore = 0;
+        for (ScoredAddress scoredAddress :
+                scoredAddresses) {
+            if (scoredAddress.getTotal() > maxScore) {
                 maxScore = scoredAddress.getTotal();
                 maxScoredAddress = scoredAddress;
             }
