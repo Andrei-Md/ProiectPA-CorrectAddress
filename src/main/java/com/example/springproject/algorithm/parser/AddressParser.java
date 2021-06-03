@@ -14,6 +14,7 @@ import org.apache.commons.codec.language.Nysiis;
 import org.apache.commons.codec.language.Soundex;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.example.springproject.algorithm.ScoreUtil.*;
@@ -75,6 +76,9 @@ public class AddressParser implements ParserInterface {
         }
         //add unknown names
         allNames.addAll(nameFields.get(FieldEnum.Unknown.id()));
+
+        //clean the list - eliminate all empty strings
+        allNames.removeAll(Arrays.asList("", null));
 
         return allNames;
     }
