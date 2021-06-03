@@ -1,12 +1,12 @@
 package com.example.springproject.algorithm;
 
-import com.example.springproject.algorithm.Scoring.AddressScoring;
-import com.example.springproject.algorithm.Scoring.BasicScoring;
 import com.example.springproject.algorithm.model.BasicAddress;
 import com.example.springproject.algorithm.model.ScoredAddress;
 import com.example.springproject.algorithm.model.ScoredAdmUnit;
 import com.example.springproject.algorithm.parser.AddressParser;
 import com.example.springproject.algorithm.parser.ParserInterface;
+import com.example.springproject.algorithm.scoring.AddressScoring;
+import com.example.springproject.algorithm.scoring.BasicScoring;
 import com.example.springproject.model.Address;
 import com.example.springproject.structures.AdmStructures;
 import com.example.springproject.structures.entities.AdministrativeHierarchy;

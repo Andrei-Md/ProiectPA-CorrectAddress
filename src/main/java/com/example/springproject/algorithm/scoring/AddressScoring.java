@@ -1,4 +1,4 @@
-package com.example.springproject.algorithm.Scoring;
+package com.example.springproject.algorithm.scoring;
 
 import com.example.springproject.algorithm.model.BasicAddress;
 import com.example.springproject.algorithm.model.ScoredAddress;
