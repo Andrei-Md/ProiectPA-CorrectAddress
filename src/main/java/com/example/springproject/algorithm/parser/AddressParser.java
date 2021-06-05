@@ -78,7 +78,7 @@ public class AddressParser implements ParserInterface {
         allNames.addAll(nameFields.get(FieldEnum.Unknown.id()));
 
         //clean the list - eliminate all empty strings
-        allNames.removeAll(Arrays.asList("", null));
+        //allNames.removeAll(Arrays.asList("", null));
 
         return allNames;
     }
