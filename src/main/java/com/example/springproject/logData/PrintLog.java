@@ -24,7 +24,6 @@ public class PrintLog {
         while(itCorrectAddress.hasNext()){
             Address correctAddress = itCorrectAddress.next();
             value.append(correctAddress.toString()).append("\n");
-//            itCorrectAddress.next();
             if(itCorrectAddress.hasNext())
                 value.append("---\n");
         }
