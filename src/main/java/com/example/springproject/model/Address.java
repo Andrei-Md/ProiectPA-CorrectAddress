@@ -22,12 +22,12 @@ public class Address {
     @Override
     public String toString() {
         return "Address: " + '\n' +
-                "{" +
-                "country= \"" + country + "\",\n" +
-                "state= \"" + state + "\",\n" +
-                "city= \"" + city + "\",\n" +
-                "postalCode= \"" + postalCode + "\",\n" +
-                "streetLine= \"" + streetLine + "\",\n" +
+                "{\n" +
+                "\"country\": \"" + country + "\",\n" +
+                "\"state\": \"" + state + "\",\n" +
+                "\"city\": \"" + city + "\",\n" +
+                "\"postalCode\": \"" + postalCode + "\",\n" +
+                "\"streetLine\": \"" + streetLine + "\"\n" +
                 '}';
     }
 }

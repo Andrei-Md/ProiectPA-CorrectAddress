@@ -7,7 +7,7 @@ import java.nio.channels.FileChannel;
 
 public class EventLog implements LogInterface {
 
-    private static final String FILE_PATH = "./resources/logs/eventLog.txt";
+    private static final String FILE_PATH = "./resources/logs/logEvent.log";
 
     public void printLogger(String logString) {
         RandomAccessFile fileWriter = null;
@@ -24,7 +24,6 @@ public class EventLog implements LogInterface {
             }
         }
     }
-
 
     /**
      * method used to append data to existing file
