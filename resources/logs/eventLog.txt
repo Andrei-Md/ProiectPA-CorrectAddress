@@ -1,0 +1,60 @@
+>>> Received Address: 
+Address: 
+{country= "Romania,
+state= "Dolj,
+city= "Craiova
+postalCode= "
+streetLine= "
+}
+------------------------------------
+>>> Corrected Address: 
+Address: 
+{country= ",
+state= ",
+city= "Comuna Corbu
+postalCode= "
+streetLine= "
+}
+
+======================================
+
+>>> Received Address: 
+Address: 
+{country= "Romania,
+state= "Dolj,
+city= "Craiova
+postalCode= "
+streetLine= "
+}
+------------------------------------
+>>> Corrected Address: 
+Address: 
+{country= ",
+state= ",
+city= "Comuna Corbu
+postalCode= "
+streetLine= "
+}
+
+======================================
+
+>>> Received Address: 
+Address: 
+{country= "Romania",
+state= "Dolj",
+city= "Craiova",
+postalCode= "",
+streetLine= "",
+}
+------------------------------------
+>>> Corrected Address: 
+Address: 
+{country= "",
+state= "",
+city= "Comuna Corbu",
+postalCode= "",
+streetLine= "",
+}
+
+======================================
+
