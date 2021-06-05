@@ -34,4 +34,4 @@ build/
 
 ### Others ###
 *.class
-./resources/logs
+/resources/logs/
