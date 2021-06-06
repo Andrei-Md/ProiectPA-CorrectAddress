@@ -25,7 +25,7 @@ public class AdministrativeUnitUtil {
     private final static char HIERARCHY_DELIM = ',';
     private final static char CITIES_DELIM = '|';
     private final static String ALTERNATE_NAMES_DELIM = ",";
-    private final static String[] ADMINISTRATIVE_NAME = {"comuna", "municipiul", "oras", "jud."};
+    private final static String[] ADMINISTRATIVE_NAME = {"comuna", "municipiul", "oras", "jud.", "Borough of", "City and Borough of" , "City of", "Isle of"};
     private final static String ADMINISTRATIVE_UNIT_DELIMITERS = " |-";
     private final static String[] ADMINISTRATIVE_UNIT_DELIMITER_LIST = {" ", "-"};
     private final static int ADMINISTRATIVE_UNIT_NAME_MIN_CHARS_NO = 4;
