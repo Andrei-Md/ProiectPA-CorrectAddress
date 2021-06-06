@@ -6,6 +6,8 @@ import com.example.springproject.structures.entities.AdministrativeUnit;
 public class ScoreUtil {
     public static final int BONUS_SAME_POSITION = 20;
     public static final int BONUS_INTERCROSSING_POSITION = 15;
+    public static final int BONUS_SAME_POSITION_INCREMENT = 3;
+    public static final int BONUS_INTERCROSSING_POSITION_INCREMENT = 3;
     public static int UNIQUE_ADMUNIT_IDENTIFIER = 0;
     public final static int NO_UNIT_ADM_MAX = 3;
     public static final int MAX_NO_FIELD = 6;
