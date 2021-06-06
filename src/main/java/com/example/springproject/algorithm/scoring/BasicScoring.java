@@ -36,10 +36,17 @@ public class BasicScoring implements AddressScoring {
         for (ScoredAdmUnit scoredAdmUnit : administrationFields.get(NO_UNIT_ADM_MAX - 1)) {
             AdministrativeUnit administrativeUnit = scoredAdmUnit.getAdministrativeUnit();
             ScoredAddress scoredAddress = new ScoredAddress();
-            Pair<Integer, Integer> bonusPair = computeBonusBasedOnDistances(basicAddress.getAllAdmUnitNames(), scoredAdmUnit.getAdministrativeUnit().getParsedName(), BONUS_INTERCROSSING_POSITION, BONUS_INTERCROSSING_POSITION_INCREMENT);
-            int bonus = bonusPair.getKey();
+            int bonus = 0;
+            Pair<Integer, Integer> bonusPair;
+
+            bonusPair = computeBonusBasedOnDistances(basicAddress.getAllAdmUnitNames(), scoredAdmUnit.getAdministrativeUnit().getParsedName(), BONUS_INTERCROSSING_POSITION, BONUS_INTERCROSSING_POSITION_INCREMENT);
+            bonus = bonusPair.getKey();
             bonus = applyBonusPenalty(bonus, scoredAddress, scoredAdmUnit.getUniqueIdentifier());
-            scoredAddress.setScoreBasedOnLevel(scoredAdmUnit.getAdministrativeUnit().getLevel(), scoredAdmUnit, (scoredAdmUnit.getScores().get(scoredAdmUnit.getAdministrativeUnit().getLevel()) + bonus));
+            if(scoredAdmUnit.getScores().get(NO_UNIT_ADM_MAX - 1) == 20){
+                bonus = (int) (bonus * 0.25);
+            }
+            scoredAdmUnit.addToScore(NO_UNIT_ADM_MAX - 1, bonus);
+            scoredAddress.setScoreBasedOnLevel(scoredAdmUnit.getAdministrativeUnit().getLevel(), scoredAdmUnit, (scoredAdmUnit.getScores().get(scoredAdmUnit.getAdministrativeUnit().getLevel())));
 
             while (administrativeUnit.getSuperDivision() != null) {
                 AdministrativeUnit superDivision = administrativeUnit.getSuperDivision();
@@ -59,15 +66,25 @@ public class BasicScoring implements AddressScoring {
 
     }
 
+    /**
+     * method to apply the bonus on a scoredAddress
+     * @param administrationFields the list of administration fields
+     * @param scoredAdmUnit the current scoredAdmUnit
+     * @param scoredAddress the current scoredAddress
+     * @param bonus the max bonus that can be applied
+     * @param superDivision the super division of the actual scored adm unit
+     */
     private void applyBonus(List<List<ScoredAdmUnit>> administrationFields, ScoredAdmUnit scoredAdmUnit, ScoredAddress scoredAddress, int bonus, AdministrativeUnit superDivision, int index) {
         if (bonus == BONUS_SAME_POSITION) {
             bonus = applyBonusPenalty(bonus, scoredAddress, administrationFields.get(superDivision.getLevel()).get(index).getUniqueIdentifier());
-            scoredAddress.setScoreBasedOnLevel(superDivision.getLevel(),
-                    new ScoredAdmUnit(superDivision, administrationFields.get(superDivision.getLevel()).get(index).getUniqueIdentifier()), administrationFields.get(superDivision.getLevel()).get(index).getScores().get(index) + bonus);
+            ScoredAdmUnit newScoredAdmUnit =  new ScoredAdmUnit(superDivision, administrationFields.get(superDivision.getLevel()).get(index).getUniqueIdentifier());
+            newScoredAdmUnit.setScores(superDivision.getLevel(), administrationFields.get(superDivision.getLevel()).get(index).getScores().get(index) + bonus);
+            scoredAddress.setScoreBasedOnLevel(superDivision.getLevel(), newScoredAdmUnit, administrationFields.get(superDivision.getLevel()).get(index).getScores().get(index) + bonus);
         } else {
             bonus = applyBonusPenalty(bonus, scoredAddress, scoredAdmUnit.getUniqueIdentifier());
-            scoredAddress.setScoreBasedOnLevel(superDivision.getLevel(),
-                    new ScoredAdmUnit(superDivision, scoredAdmUnit.getUniqueIdentifier()), bonus);
+            ScoredAdmUnit newScoredAdmUnit = new ScoredAdmUnit(superDivision, scoredAdmUnit.getUniqueIdentifier());
+            newScoredAdmUnit.setScores(superDivision.getLevel(), bonus);
+            scoredAddress.setScoreBasedOnLevel(superDivision.getLevel(), newScoredAdmUnit, bonus);
         }
     }
 

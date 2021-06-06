@@ -5,6 +5,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.SetMultimap;
 import lombok.Data;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -60,6 +61,7 @@ public class BasicAddress {
     }
 
     public void addNameField(String nameField, Integer id) {
+        nameField = Normalizer.normalize(nameField, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");;
         nameFields.get(id).add(nameField);
     }
 
