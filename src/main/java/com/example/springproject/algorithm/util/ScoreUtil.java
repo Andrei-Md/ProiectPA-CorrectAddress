@@ -1,4 +1,4 @@
-package com.example.springproject.algorithm;
+package com.example.springproject.algorithm.util;
 
 import com.example.springproject.algorithm.model.ScoredAdmUnit;
 import com.example.springproject.structures.entities.AdministrativeUnit;

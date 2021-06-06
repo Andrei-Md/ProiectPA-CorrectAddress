@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.example.springproject.algorithm.ScoreUtil.*;
+import static com.example.springproject.algorithm.util.ScoreUtil.*;
 
 public class AddressParser implements ParserInterface {
 

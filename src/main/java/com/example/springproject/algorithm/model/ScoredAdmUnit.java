@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import static com.example.springproject.algorithm.ScoreUtil.MAX_NO_FIELD;
+import static com.example.springproject.algorithm.util.ScoreUtil.MAX_NO_FIELD;
 
 @Data
 public class ScoredAdmUnit {
