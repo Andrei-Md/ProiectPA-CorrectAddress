@@ -28,9 +28,13 @@ public class AdministrativeUnitUtil {
     private final static String[] ADMINISTRATIVE_NAME = {"comuna", "municipiul", "oras", "jud."};
     private final static String ADMINISTRATIVE_UNIT_DELIMITERS = " |-";
     private final static String[] ADMINISTRATIVE_UNIT_DELIMITER_LIST = {" ", "-"};
-    private final static int ADMINISTRATIVE_UNIT_NAME_MIN_CHARS_NO = 5;
+    private final static int ADMINISTRATIVE_UNIT_NAME_MIN_CHARS_NO = 4;
     private final static List<String> ROOT_LIST = new ArrayList() {{
+        add("6269131"); //England
         add("798549"); //Romania
+        add("2641364"); //Northen Ireland
+        add("2634895"); //Wales
+        add("2638360"); //Scotland
     }};
 
     /**
@@ -240,18 +244,23 @@ public class AdministrativeUnitUtil {
      * @param level                division level
      */
     private static void createHierarchy(AdministrativeHierarchy administrativeHierarchy, Map<String, AdministrativeUnit> administrativeUnitMapAll, AdministrativeUnit superdivisionAdmUnit, HashSet<String> subdivisonSet, int level) {
-        if (subdivisonSet.isEmpty())
-            return;
-        for (String code : subdivisonSet) {
-            //add to map the current child
-            AdministrativeUnit currentAdmUnit = administrativeUnitMapAll.get(code);
-            superdivisionAdmUnit.getSubDivision().put(currentAdmUnit.getAsciiName(), currentAdmUnit);
-            currentAdmUnit.setSuperDivision(superdivisionAdmUnit);  //set superdivision
-            currentAdmUnit.setLevel(level);                         //set level
+        try {
+            if (subdivisonSet.isEmpty())
+                return;
+            for (String code : subdivisonSet) {
+                //add to map the current child
+                AdministrativeUnit currentAdmUnit = administrativeUnitMapAll.get(code);
+                superdivisionAdmUnit.getSubDivision().put(currentAdmUnit.getAsciiName(), currentAdmUnit);
+                currentAdmUnit.setSuperDivision(superdivisionAdmUnit);  //set superdivision
+                currentAdmUnit.setLevel(level);                         //set level
 
-            //get current administrative unit subdivisions
-            HashSet<String> newSubdivisonSet = new HashSet<>(administrativeHierarchy.getAdministrativeUnitHierarchy().get(code));
-            createHierarchy(administrativeHierarchy, administrativeUnitMapAll, currentAdmUnit, newSubdivisonSet, level + 1);
+                //get current administrative unit subdivisions
+                HashSet<String> newSubdivisonSet = new HashSet<>(administrativeHierarchy.getAdministrativeUnitHierarchy().get(code));
+                createHierarchy(administrativeHierarchy, administrativeUnitMapAll, currentAdmUnit, newSubdivisonSet, level + 1);
+            }
+        }catch (Throwable e){
+            System.out.println(superdivisionAdmUnit.getAsciiName());
+            e.printStackTrace();
         }
     }
 
