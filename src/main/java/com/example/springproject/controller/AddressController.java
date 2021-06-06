@@ -22,7 +22,7 @@ public class AddressController {
         CorrectAddress correctAddress = new CorrectAddress();
         List<Address> correctAddressList = correctAddress.correctAddress(address);
         PrintLog.printLog(address,correctAddressList);
-        log.info("Test");
+//        log.info("Test");
         return new ResponseEntity<>(correctAddressList,HttpStatus.OK);
     }
 
