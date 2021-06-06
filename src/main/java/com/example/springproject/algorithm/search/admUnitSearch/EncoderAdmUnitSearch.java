@@ -20,7 +20,7 @@ public class EncoderAdmUnitSearch implements AdmUnitSearchInterface {
         String encodedName = null;
         try {
             encodedName = stringEncoder.encode(entityName);
-        } catch (EncoderException e) {
+        } catch (EncoderException | IllegalArgumentException e ) {
             e.printStackTrace();
             return returnedScoredAdmUnitList;
         }
