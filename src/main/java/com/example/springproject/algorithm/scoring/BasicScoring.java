@@ -4,13 +4,13 @@ import com.example.springproject.algorithm.model.BasicAddress;
 import com.example.springproject.algorithm.model.ScoredAddress;
 import com.example.springproject.algorithm.model.ScoredAdmUnit;
 import com.example.springproject.algorithm.search.stringSearch.StringSearch;
+import com.example.springproject.algorithm.util.Pair;
 import com.example.springproject.structures.entities.AdministrativeUnit;
-import javafx.util.Pair;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.example.springproject.algorithm.ScoreUtil.*;
+import static com.example.springproject.algorithm.util.ScoreUtil.*;
 import static java.lang.Math.max;
 
 public class BasicScoring implements AddressScoring {

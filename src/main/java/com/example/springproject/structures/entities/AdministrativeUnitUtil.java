@@ -15,7 +15,7 @@ import org.apache.commons.codec.language.Soundex;
 import java.io.*;
 import java.util.*;
 
-import static com.example.springproject.algorithm.ScoreUtil.NO_UNIT_ADM_MAX;
+import static com.example.springproject.algorithm.util.ScoreUtil.NO_UNIT_ADM_MAX;
 
 public class AdministrativeUnitUtil {
 

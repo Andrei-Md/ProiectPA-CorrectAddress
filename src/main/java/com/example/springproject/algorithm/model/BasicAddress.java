@@ -10,8 +10,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.example.springproject.algorithm.ScoreUtil.MAX_NO_FIELD;
-import static com.example.springproject.algorithm.ScoreUtil.NO_UNIT_ADM_MAX;
+import static com.example.springproject.algorithm.util.ScoreUtil.MAX_NO_FIELD;
+import static com.example.springproject.algorithm.util.ScoreUtil.NO_UNIT_ADM_MAX;
 
 @Data
 public class BasicAddress {

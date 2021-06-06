@@ -1,7 +1,6 @@
 package com.example.springproject.algorithm.search.admUnitSearch;
 
 import com.example.springproject.algorithm.model.ScoredAdmUnit;
-import com.example.springproject.structures.AdmStructures;
 import com.example.springproject.structures.entities.AdministrativeUnit;
 import com.google.common.collect.SetMultimap;
 import org.apache.commons.codec.EncoderException;
@@ -10,7 +9,7 @@ import org.apache.commons.codec.StringEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.springproject.algorithm.ScoreUtil.*;
+import static com.example.springproject.algorithm.util.ScoreUtil.*;
 
 public class EncoderAdmUnitSearch implements AdmUnitSearchInterface {
 
