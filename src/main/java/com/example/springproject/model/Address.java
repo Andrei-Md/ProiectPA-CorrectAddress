@@ -2,6 +2,9 @@ package com.example.springproject.model;
 
 import lombok.Data;
 
+/**
+ * class that encapsulates an address
+ */
 @Data
 public class Address {
 

@@ -9,6 +9,14 @@ import java.util.List;
 
 public class StringSearch {
 
+    /**
+     * method that gets the damerau levenshtein distances between a word
+     * and every string from a list
+     * @param wordToFind the word to find
+     * @param stringsList the string list
+     * @return a list of all the distances between the specified word and
+     * the words from the list
+     */
     public List<Double> getDamerauLevenshteinDistances(String wordToFind,List<String> stringsList){
         List<Double> foundDistances = new ArrayList<>();
         if(wordToFind.isEmpty()){

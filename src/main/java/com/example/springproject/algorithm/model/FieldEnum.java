@@ -1,5 +1,8 @@
 package com.example.springproject.algorithm.model;
 
+/**
+ * enumeration for the fields
+ */
 public enum FieldEnum {
     Country(0),
     State(1),

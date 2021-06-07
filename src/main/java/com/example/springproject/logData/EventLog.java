@@ -5,10 +5,18 @@ import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
+/**
+ * class used to encapsulate the methods for creating the event log files
+ */
 public class EventLog implements LogInterface {
 
     private static final String FILE_PATH = "./resources/logs/logEvent.log";
 
+    /**
+     * method used to manipulate log files
+     *
+     * @param logString the log string
+     */
     public void printLogger(String logString) {
         RandomAccessFile fileWriter = null;
         try {

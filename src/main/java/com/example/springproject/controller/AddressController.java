@@ -18,11 +18,10 @@ public class AddressController {
 
     @PostMapping
     public ResponseEntity<List<Address>> postController(@RequestBody Address address){
-
         CorrectAddress correctAddress = new CorrectAddress();
         List<Address> correctAddressList = correctAddress.correctAddress(address);
         PrintLog.printLog(address,correctAddressList);
-//        log.info("Test");
+//        log.info("Log Test");
         return new ResponseEntity<>(correctAddressList,HttpStatus.OK);
     }
 

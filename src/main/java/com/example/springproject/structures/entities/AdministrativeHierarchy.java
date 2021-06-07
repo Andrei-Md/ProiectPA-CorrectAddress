@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-
+/**
+ * class that encapsulates an administrative hierarchy
+ */
 public class AdministrativeHierarchy implements Serializable {
 
     private String path;

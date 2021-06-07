@@ -13,6 +13,9 @@ import java.util.stream.Collectors;
 import static com.example.springproject.algorithm.util.ScoreUtil.*;
 import static java.lang.Math.max;
 
+/**
+ * class that encapsulate the scoring algorithm
+ */
 public class BasicScoring implements AddressScoring {
 
     @Override
