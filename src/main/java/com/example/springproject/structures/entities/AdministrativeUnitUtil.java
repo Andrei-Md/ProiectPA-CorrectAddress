@@ -17,9 +17,10 @@ import java.util.*;
 
 import static com.example.springproject.algorithm.util.ScoreUtil.NO_UNIT_ADM_MAX;
 import static com.example.springproject.structures.GlobalUtil.*;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 public class AdministrativeUnitUtil {
-
 
 
     /**
@@ -187,14 +188,14 @@ public class AdministrativeUnitUtil {
         String admUnitParsedName = currentAdmUnit.getAsciiName();
         for (String admName : administrativeNameListPrefix) {
             if (currentAdmUnit.getAsciiName().toLowerCase().startsWith(admName)) {
-                admUnitParsedName = admUnitParsedName.substring(admName.length() + 1);
+                admUnitParsedName = admUnitParsedName.substring(min(admName.length() + 1, admUnitParsedName.length()));
                 currentAdmUnit.setParsedName(admUnitParsedName);
                 return admUnitParsedName;
             }
         }
-        for(String admName : administrativeNameListSuffix){
-            if(currentAdmUnit.getAsciiName().toLowerCase().endsWith(admName)){
-                admUnitParsedName = admUnitParsedName.substring(0,admUnitParsedName.length()-admName.length()-1);
+        for (String admName : administrativeNameListSuffix) {
+            if (currentAdmUnit.getAsciiName().toLowerCase().endsWith(admName)) {
+                admUnitParsedName = admUnitParsedName.substring(0, max(admUnitParsedName.length() - admName.length() - 1, 0));
                 currentAdmUnit.setParsedName(admUnitParsedName);
                 return admUnitParsedName;
             }
