@@ -41,8 +41,7 @@ public class JSONAddressCorrect {
                 List<Address> correctedAddresses = correctAddress.correctAddress(address);
                 if (correctedAddresses.contains(expectedAddresses.get(i))) {
                     count++;
-                } else
-                if(debugPrint) {
+                } else if (debugPrint) {
                     log.info(address.toString());
                 }
             }
