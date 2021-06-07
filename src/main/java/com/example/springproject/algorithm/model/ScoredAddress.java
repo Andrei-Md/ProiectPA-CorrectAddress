@@ -2,6 +2,9 @@ package com.example.springproject.algorithm.model;
 
 import lombok.Data;
 
+/**
+ * class that encapsulates a scored address
+ */
 @Data
 public class ScoredAddress {
 
@@ -18,6 +21,12 @@ public class ScoredAddress {
     private int streetLineScore;
     private int total;
 
+    /**
+     * method used to set the score based on the administrative unit level
+     * @param level the administrative unit's level
+     * @param scoredAdmUnit the scored administrative unit
+     * @param score the score that will be set
+     */
     public void setScoreBasedOnLevel(int level, ScoredAdmUnit scoredAdmUnit,int score){
         if(level == 0){
             this.setCountry(scoredAdmUnit);
@@ -34,6 +43,10 @@ public class ScoredAddress {
     }
 
 
+    /**
+     * method that computes the total score
+     * for the current scored address
+     */
     public void computeTotal(){
         this.total = countryScore + cityScore + stateScore;
     }

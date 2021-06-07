@@ -3,6 +3,9 @@ package com.example.springproject.structures.benchmark;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * class that encapsulates a benchmark for correcting addresses
+ */
 @Getter
 @Setter
 public class CorrectAddressBenchmark {

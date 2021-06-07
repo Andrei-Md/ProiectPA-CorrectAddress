@@ -25,10 +25,22 @@ public class ScoredAdmUnit {
         this.uniqueIdentifier = uniqueIdentifier;
     }
 
+    /**
+     * method that sets the score for the
+     * scored administrative unit
+     * @param id the score id
+     * @param bonus the new score
+     */
     public void setScores(int id, int bonus) {
         scores.set(id, bonus);
     }
 
+    /**
+     * method that adds to the score of
+     * a scored administrative unit
+     * @param id the score id
+     * @param bonus the score that will be added
+     */
     public void addToScore(int id, int bonus){
         scores.set(id,scores.get(id) + bonus);
     }

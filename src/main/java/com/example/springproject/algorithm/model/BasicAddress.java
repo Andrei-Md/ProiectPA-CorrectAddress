@@ -14,6 +14,9 @@ import java.util.Set;
 import static com.example.springproject.algorithm.util.ScoreUtil.MAX_NO_FIELD;
 import static com.example.springproject.algorithm.util.ScoreUtil.NO_UNIT_ADM_MAX;
 
+/**
+ * class used to encapsulate the basic address
+ */
 @Data
 public class BasicAddress {
 
@@ -40,6 +43,11 @@ public class BasicAddress {
         return administrationFieldsMap;
     }
 
+    /**
+     * method used to initialize the fields names
+     *
+     * @return the list fields names
+     */
     private List<List<String>> initNameFields() {
         List<List<String>> retNameFields = new ArrayList<>();
         for (int i = 0; i < MAX_NO_FIELD; i++) {
@@ -49,9 +57,9 @@ public class BasicAddress {
     }
 
     /**
-     * method used to add
+     * method used to add administrative unit to administrative field
      *
-     * @param searchAdmUnitLists
+     * @param searchAdmUnitLists the administrative unit list
      */
     public void addAllAdmUnit(List<List<ScoredAdmUnit>> searchAdmUnitLists) {
         for (int i = 0; i < NO_UNIT_ADM_MAX; i++) {
@@ -60,8 +68,15 @@ public class BasicAddress {
         }
     }
 
+    /**
+     * method used to add name field after removing diacritics
+     *
+     * @param nameField name field
+     * @param id        administration unit id
+     */
     public void addNameField(String nameField, Integer id) {
-        nameField = Normalizer.normalize(nameField, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");;
+        nameField = Normalizer.normalize(nameField, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+        ;
         nameFields.get(id).add(nameField);
     }
 

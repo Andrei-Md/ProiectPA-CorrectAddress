@@ -13,9 +13,6 @@ import org.apache.commons.codec.StringEncoder;
 import org.apache.commons.codec.language.Nysiis;
 import org.apache.commons.codec.language.Soundex;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +20,12 @@ import java.util.List;
 import static com.example.springproject.algorithm.util.ScoreUtil.*;
 import static com.example.springproject.structures.GlobalUtil.ADMINISTRATIVE_NAME_PREFIX;
 import static com.example.springproject.structures.GlobalUtil.ADMINISTRATIVE_NAME_SUFFIX;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
+/**
+ * class that does a basic address parser
+ */
 public class AddressParser implements ParserInterface {
 
     private BasicAddress basicAddress;
@@ -82,13 +84,13 @@ public class AddressParser implements ParserInterface {
 
         for (String admName : administrativeNameListPrefix) {
             if (name.toLowerCase().startsWith(admName)) {
-                name = name.substring(min(admName.length() + 1,name.length()));
+                name = name.substring(min(admName.length() + 1, name.length()));
                 return name;
             }
         }
         for (String admName : administrativeNameListSuffix) {
             if (name.toLowerCase().endsWith(admName)) {
-                name = name.substring(0, max(name.length() - admName.length() - 1,0));
+                name = name.substring(0, max(name.length() - admName.length() - 1, 0));
                 return name;
             }
         }
@@ -119,8 +121,10 @@ public class AddressParser implements ParserInterface {
     /**
      * method used to search the name Fields into the Administrative Unit Map
      *
-     * @param basicAddress
-     * @return
+     * @param basicAddress        basic address
+     * @param stringEncoder       the string encoder
+     * @param encodedUnitsMapList encoded administrative units list of maps
+     * @return basic address with the found administrative units set
      */
     private BasicAddress searchEntity(BasicAddress basicAddress, StringEncoder stringEncoder, List<SetMultimap<String, AdministrativeUnit>> encodedUnitsMapList) {
         //for each administrative unit
@@ -138,11 +142,13 @@ public class AddressParser implements ParserInterface {
     }
 
     /**
-     * method used to search the string for administrative unit and return directly the scoredAdministrative unit
+     * method used to search the string for administrative unit and return directly the scoredAdministrative unit prepared for future scoring
      *
-     * @param entity          the unit Name
-     * @param id              the id of the unit so it can be applied a bonus if something is found on same position
-     * @param admUnitSearcher administrative unit search type
+     * @param stringEncoder       the string encoder
+     * @param encodedUnitsMapList encoded administrative units list of maps
+     * @param entity              entity name - the actual received name
+     * @param id                  the id of the unit so it can be applied a bonus if something is found on same position
+     * @param admUnitSearcher     administrative unit search type
      * @return the list of multimap representing the similar administrative units found on different fields (Country, City, State)
      */
     private List<List<ScoredAdmUnit>> searchAdmUnit(StringEncoder stringEncoder, List<SetMultimap<String, AdministrativeUnit>> encodedUnitsMapList, String entity, int id, AdmUnitSearchInterface admUnitSearcher) {
