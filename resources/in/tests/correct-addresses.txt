@@ -61,5 +61,516 @@
 "city": "Monkhopton",
 "postalCode": "",
 "streetLine": ""
+},
+{
+"country": "România",
+"state": "București",
+"city": "Sector 1",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Suceava",
+"city": "Comuna Putna",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Braşov",
+"city": "Comuna Comana",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Constanța",
+"city": "Municipiul Constanţa",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Constanța",
+"city": "Municipiul Constanţa",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Constanța",
+"city": "Municipiul Constanţa",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Hertfordshire",
+"city": "City and District of St. Albans",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Essex",
+"city": "Tendring District",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Surrey",
+"city": "Guildford District",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Devon",
+"city": "East Devon District",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Dorset",
+"city": "Purbeck District",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "West Sussex",
+"city": "Arun District",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Scotland",
+"state": "South Lanarkshire",
+"city": "Lanarkshire",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "jud. Dolj",
+"city": "Municipiul Craiova",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Scotland",
+"state": "South Lanarkshire",
+"city": "Lanarkshire",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Herefordshire",
+"city": "Elton",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Cheshire East",
+"city": "Macclesfield Forest and Wildboarclough",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Wiltshire",
+"city": "Fonthill Bishop",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Bournemouth, Christchurch and Poole Council",
+"city": "Christchurch District",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Iaşi",
+"city": "Municipiul Iaşi",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "West Berkshire",
+"city": "Englefield",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "County Durham",
+"city": "Bradbury and the Isle",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Medway",
+"city": "Isle of Grain",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Medway",
+"city": "Isle of Grain",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Suceava",
+"city": "Municipiul Suceava",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "East Riding of Yorkshire",
+"city": "Brantingham",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Wiltshire",
+"city": "Tidworth",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "West Berkshire",
+"city": "West Ilsley",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "West Berkshire",
+"city": "West Ilsley",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "West Berkshire",
+"city": "West Ilsley",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Hunedoara",
+"city": "Municipiul Deva",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Hunedoara",
+"city": "Municipiul Deva",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Hunedoara",
+"city": "Municipiul Deva",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "jud. Dolj",
+"city": "Municipiul Craiova",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "jud. Dolj",
+"city": "Municipiul Craiova",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "jud. Dolj",
+"city": "Municipiul Craiova",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Neamţ",
+"city": "Comuna Poiana Teiului",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Neamţ",
+"city": "Comuna Poiana Teiului",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Neamţ",
+"city": "Comuna Poiana Teiului",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Neamţ",
+"city": "Municipiul Roman",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Neamţ",
+"city": "Municipiul Roman",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Neamţ",
+"city": "Municipiul Roman",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Neamţ",
+"city": "Municipiul Roman",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Neamţ",
+"city": "Oraş Târgu Neamţ",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Neamţ",
+"city": "Oraş Târgu Neamţ",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Neamţ",
+"city": "Oraş Târgu Neamţ",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Neamţ",
+"city": "Oraş Târgu Neamţ",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "East Riding of Yorkshire",
+"city": "Newport",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "East Riding of Yorkshire",
+"city": "Newport",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Herefordshire",
+"city": "Little Hereford",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Cluj",
+"city": "Municipiul Cluj-Napoca",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Cluj",
+"city": "Municipiul Cluj-Napoca",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Cluj",
+"city": "Municipiul Cluj-Napoca",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Cluj",
+"city": "Municipiul Cluj-Napoca",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Arad",
+"city": "Municipiul Arad",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Arad",
+"city": "Municipiul Arad",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Arad",
+"city": "Municipiul Arad",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Arad",
+"city": "Municipiul Arad",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Bacău",
+"city": "Municipiul Bacãu",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Bacău",
+"city": "Municipiul Bacãu",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Bacău",
+"city": "Municipiul Bacãu",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Bacău",
+"city": "Municipiul Bacãu",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Bacău",
+"city": "Oraş Comãneşti",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Bacău",
+"city": "Oraş Comãneşti",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Bacău",
+"city": "Oraş Comãneşti",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Bacău",
+"city": "Oraş Comãneşti",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Suceava",
+"city": "Comuna Comăneşti",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Suceava",
+"city": "Comuna Comăneşti",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Suceava",
+"city": "Comuna Comăneşti",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Bihor",
+"city": "Municipiul Beiuş",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Bihor",
+"city": "Municipiul Beiuş",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Bihor",
+"city": "Municipiul Beiuş",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Bihor",
+"city": "Municipiul Beiuş",
+"postalCode": "",
+"streetLine": ""
 }
 ]

@@ -9,6 +9,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import static com.example.springproject.structures.GlobalUtil.*;
+
 @Slf4j
 @Component
 public class AdmStructures implements ApplicationRunner {
@@ -32,14 +34,12 @@ public class AdmStructures implements ApplicationRunner {
         administrativeHierarchy = AdministrativeUnitUtil.loadAdministrativeHierarchy(GlobalUtil.ADMINISTRATIVE_UNIT_SERIALIZE_PATH);
         if (args.getSourceArgs().length > 0) {
             if (args.getSourceArgs()[0].equalsIgnoreCase("test")) {
-                CorrectAddressBenchmark correctAddressBenchmark = JSONAddressCorrect.getNumberOfRightAddresses();
-                log.info("Number of addresses: " + correctAddressBenchmark.getNrOfAddresses());
-                log.info("Number of addresses corrected: " + correctAddressBenchmark.getNrOfCorrectedAddresses());
-                log.info("Time to correct: " + correctAddressBenchmark.getTimeCorrectAll());
-                log.info("Average time to correct an address: " + correctAddressBenchmark.calculateAverageTimeCorrectAddress());
+                CorrectAddressBenchmark correctAddressBenchmark = JSONAddressCorrect.getNumberOfRightAddresses(ADDRESSES_PATH, CORRECTED_ADDRESSES_PATH, true);
+                JSONAddressCorrect.printLogs("Shuffle addresses Report:\n", correctAddressBenchmark);
 
+                CorrectAddressBenchmark correctAddressBenchmarkFuzzy = JSONAddressCorrect.getNumberOfRightAddresses(ADDRESSES_FUZZY_PATH, CORRECTED_ADDRESSES_FUZZY_PATH, false);
+                JSONAddressCorrect.printLogs("Fuzzy addresses Report:\n", correctAddressBenchmarkFuzzy);
             }
         }
     }
-
 }

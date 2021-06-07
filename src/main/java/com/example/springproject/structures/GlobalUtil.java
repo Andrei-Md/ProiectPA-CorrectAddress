@@ -23,4 +23,10 @@ public class GlobalUtil {
         add("2634895"); //Wales
         add("2638360"); //Scotland
     }};
+
+    public static final String ADDRESSES_PATH = "resources/in/tests/addresses.txt";
+    public static final String CORRECTED_ADDRESSES_PATH = "resources/in/tests/correct-addresses.txt";
+    public static final String ADDRESSES_FUZZY_PATH = "resources/in/tests/address-fuzzy.txt";
+    public static final String CORRECTED_ADDRESSES_FUZZY_PATH = "resources/in/tests/correct-addresses-fuzzy.txt";
+
 }
