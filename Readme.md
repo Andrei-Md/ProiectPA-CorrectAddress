@@ -8,6 +8,7 @@ Andrei Moldoveanu
     * [About](#About)
     * [Run the application](#Run-the-application)
     * [Examples of address corrected](#Examples-of-address-corrected)
+    * [Benchmark](#Benchmark)
     
 
 ## About
@@ -17,10 +18,14 @@ The purpose of this application is to correct an address. The application rest a
 
 ## Run the application
 
-### compile, test & package: `mvn clean install`
-### run: `mvn exec:java -Dexec.mainClass=com.example.springproject.SpringProjectApplication`
-### run for tests: `mvn exec:java -Dexec.mainClass=com.example.springproject.SpringProjectApplication -Dexec.args="test"`
-### run to serialize administrative units: `mvn exec:java -Dexec.mainClass=com.example.springproject.SpringProjectApplication -Dexec.args="serialize"` 
+### compile, test & package: 
+    `mvn clean install`
+### run: 
+    `mvn exec:java -Dexec.mainClass=com.example.springproject.SpringProjectApplication`
+### run for tests: 
+    `mvn exec:java -Dexec.mainClass=com.example.springproject.SpringProjectApplication -Dexec.args="test"`
+### run to serialize administrative units: 
+    `mvn exec:java -Dexec.mainClass=com.example.springproject.SpringProjectApplication -Dexec.args="serialize"` 
 
 **Default port used locally**: 8082
 
@@ -151,3 +156,8 @@ Corrected Address:
 "streetLine": ""
 }
 ```
+
+## Benchmark
+Average time to correct an address: ~2.5ms\
+Test Results:\
+![Test Results](resources/pics/test-results.png)
