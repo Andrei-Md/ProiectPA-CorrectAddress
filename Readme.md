@@ -7,13 +7,20 @@ Andrei Moldoveanu
 - [Correct Address](#Correct-Address)
     * [About](#About)
     * [Run the application](#Run-the-application)
+    * [Swagger](#Swagger)
+    * [LogFiles](#Log-Files)
     * [Examples of address corrected](#Examples-of-address-corrected)
     * [Benchmark](#Benchmark)
     
 
 ## About
 The purpose of this application is to correct an address. The application rest api resolves post methods by returning a corrected address.
-
+Currently it supports address from the following countries:
+ - England;
+ - Northen Ireland;
+ - Wales;
+ - Scotland;
+ - Romania.
 *** 
 
 ## Run the application
@@ -42,6 +49,16 @@ body:
 "streetLine": ""
 }
 ```
+
+## Swagger
+http://localhost:8082/swagger-ui/index.html
+
+## Log Files
+### Event Logs
+![event-logs](resources/pics/event-logs.png)
+
+### Logs
+![log-file](resources/pics/logfile.png)
 
 ***
 ## Deploy
