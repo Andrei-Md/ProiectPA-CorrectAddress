@@ -13,11 +13,16 @@ import org.apache.commons.codec.StringEncoder;
 import org.apache.commons.codec.language.Nysiis;
 import org.apache.commons.codec.language.Soundex;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static com.example.springproject.algorithm.util.ScoreUtil.*;
+import static com.example.springproject.structures.GlobalUtil.ADMINISTRATIVE_NAME_PREFIX;
+import static com.example.springproject.structures.GlobalUtil.ADMINISTRATIVE_NAME_SUFFIX;
 
 public class AddressParser implements ParserInterface {
 
@@ -40,26 +45,54 @@ public class AddressParser implements ParserInterface {
     /**
      * parse each string and transform it in Scored Administrative Unit
      *
-     * @param address
-     * @return
+     * @param address the address to process
+     * @return a basic address based on the give address
      */
     private BasicAddress parse(Address address) {
         //parse TODO
         //also have an unknown field for locations which are parsed in street line field or postal code field
 
         //treat administrative units
-        this.basicAddress.addNameField(address.getCountry(), FieldEnum.Country.id());
-        this.basicAddress.addNameField(address.getState(), FieldEnum.State.id());
-        this.basicAddress.addNameField(address.getCity(), FieldEnum.City.id());
+
+        this.basicAddress.addNameField(parseAddressName(address.getCountry(), ADMINISTRATIVE_NAME_PREFIX, ADMINISTRATIVE_NAME_SUFFIX), FieldEnum.Country.id());
+        this.basicAddress.addNameField(parseAddressName(address.getState(), ADMINISTRATIVE_NAME_PREFIX, ADMINISTRATIVE_NAME_SUFFIX), FieldEnum.State.id());
+        this.basicAddress.addNameField(parseAddressName(address.getCity(), ADMINISTRATIVE_NAME_PREFIX, ADMINISTRATIVE_NAME_SUFFIX), FieldEnum.City.id());
 
         //treat unknown
-        this.basicAddress.addNameField(address.getStreetLine(), FieldEnum.Unknown.id());
-        this.basicAddress.addNameField(address.getPostalCode(), FieldEnum.Unknown.id());
+        this.basicAddress.addNameField(parseAddressName(address.getStreetLine(), ADMINISTRATIVE_NAME_PREFIX, ADMINISTRATIVE_NAME_SUFFIX), FieldEnum.Unknown.id());
+        this.basicAddress.addNameField(parseAddressName(address.getPostalCode(), ADMINISTRATIVE_NAME_PREFIX, ADMINISTRATIVE_NAME_SUFFIX), FieldEnum.Unknown.id());
 
         //add all String to a list
         this.basicAddress.setAllAdmUnitNames(createAllNamesList(this.basicAddress.getNameFields()));
         //fill nameList
         return this.basicAddress;
+    }
+
+    /**
+     * method used to parse each field and subtract the desired prefix or suffix
+     *
+     * @param name                         the string from which to subtract the prefix
+     * @param administrativeNameListPrefix the list of prefixes
+     * @param administrativeNameListSuffix the list of suffixes
+     * @return parsed string
+     */
+    private String parseAddressName(String name, String[] administrativeNameListPrefix, String[] administrativeNameListSuffix) {
+        if (name.isEmpty())
+            return name;
+
+        for (String admName : administrativeNameListPrefix) {
+            if (name.toLowerCase().startsWith(admName)) {
+                name = name.substring(min(admName.length() + 1,name.length()));
+                return name;
+            }
+        }
+        for (String admName : administrativeNameListSuffix) {
+            if (name.toLowerCase().endsWith(admName)) {
+                name = name.substring(0, max(name.length() - admName.length() - 1,0));
+                return name;
+            }
+        }
+        return name;
     }
 
     /**
