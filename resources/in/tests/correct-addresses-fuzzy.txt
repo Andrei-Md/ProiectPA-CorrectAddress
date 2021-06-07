@@ -1,0 +1,114 @@
+[
+{
+"country": "England",
+"state": "West Berkshire",
+"city": "Englefield",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "West Berkshire",
+"city": "Englefield",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "North Somerset",
+"city": "Barrow Gurney",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "North Somerset",
+"city": "Barrow Gurney",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "North Somerset",
+"city": "Barrow Gurney",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "North Somerset",
+"city": "Barrow Gurney",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Cumbria",
+"city": "Barrow-in-Furness District",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Cumbria",
+"city": "Barrow-in-Furness District",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Cumbria",
+"city": "Barrow-in-Furness District",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Cumbria",
+"city": "Barrow-in-Furness District",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Cumbria",
+"city": "Barrow-in-Furness District",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Iaşi",
+"city": "Municipiul Iaşi",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Iaşi",
+"city": "Municipiul Iaşi",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Iaşi",
+"city": "Municipiul Iaşi",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Iaşi",
+"city": "Municipiul Iaşi",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Iaşi",
+"city": "Municipiul Iaşi",
+"postalCode": "",
+"streetLine": ""
+}
+]

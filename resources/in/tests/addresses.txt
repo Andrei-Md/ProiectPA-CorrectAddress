@@ -61,5 +61,516 @@
 "city": "Shropshire",
 "postalCode": "",
 "streetLine": ""
+},
+{
+"country": "",
+"state": "Sector 1",
+"city": "Bucuressto",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Suceava",
+"state": "",
+"city": "Romania",
+"postalCode": "",
+"streetLine": "Putna"
+},
+{
+"country": "",
+"state": "",
+"city": "Comana",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Constanța",
+"city": "Municipiul",
+"postalCode": "District",
+"streetLine": ""
+},
+{
+"country": "Constanţa",
+"state": "Municipiul Constanţa",
+"city": "România",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Constanța",
+"city": "",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Hertfordshire",
+"state": "City and District of St. Albans",
+"city": "England",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Tendring District",
+"city": "Essex",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Guildford District",
+"state": "",
+"city": "Surrey",
+"postalCode": "",
+"streetLine": "England"
+},
+{
+"country": "",
+"state": "England",
+"city": "Devon",
+"postalCode": "East Devon District",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Purbeck District",
+"city": "Dorset",
+"postalCode": "England",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "England",
+"city": "",
+"postalCode": "West Sussex",
+"streetLine": "Arun District"
+},
+{
+"country": "",
+"state": "Lanarkshire",
+"city": "",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Dolj",
+"state": "Craiova",
+"city": "England",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Lanarsire",
+"city": "",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country":"Herorshire",
+"state":"Eltn",
+"city":"",
+"postalCode":"",
+"streetLine":""
+},
+{
+"country": "",
+"state": "Forest",
+"city": "Cesire",
+"postalCode": "",
+"streetLine": "England"
+},
+{
+"country": "",
+"state": "Fonthill Bishop",
+"city": "Romania",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "",
+"city": "Bournemouth, Christchurch and Poole Council",
+"postalCode": "Christchurch District",
+"streetLine": "England"
+},
+{
+"country": "Romania",
+"state": "Iasi",
+"city": "Iassi",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "",
+"city": "England",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "",
+"city": "Isle",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Isle of Grain",
+"state": "England",
+"city": "",
+"postalCode": "Medway",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "",
+"city": "Isle Grain",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "England",
+"state": "Suceava",
+"city": "Romania",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Brantingam",
+"city": "Yorksire",
+"postalCode": "",
+"streetLine": "Scotland"
+},
+{
+"country": "Tadworth",
+"state": "Wiltsire",
+"city": "",
+"postalCode": "",
+"streetLine": "Romania"
+},
+{
+"country": "England",
+"state": "West Ilsley",
+"city": "West Berkshire",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "West Ilsley",
+"state": "England",
+"city": "West Berkshire",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "England",
+"city": "West Berkshire",
+"postalCode": "West Ilsley",
+"streetLine": ""
+},
+{
+"country": "România",
+"state": "Hunedoara",
+"city": "Deva",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Romania",
+"city": "Hunedoara",
+"postalCode": "Deva",
+"streetLine": ""
+},
+{
+"country": "Deva",
+"state": "Hunedoara",
+"city": "Romania",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Romania",
+"city": "jud. Dolj",
+"postalCode": "",
+"streetLine": "Municipiul Craiova"
+},
+{
+"country": "",
+"state": "Romania",
+"city": "Dolj",
+"postalCode": "",
+"streetLine": "Craiova"
+},
+{
+"country": "Craiova",
+"state": "",
+"city": "Dolj",
+"postalCode": "Romania",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Neamţ",
+"city": "Poiana Teiului",
+"postalCode": "Romania",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Poiana Teiului",
+"city": "Poiana Teiului",
+"postalCode": "Romania",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Poiana",
+"city": "Teiului",
+"postalCode": "Romania",
+"streetLine": ""
+},
+{
+"country": "Romania",
+"state": "Neamt",
+"city": "Roman",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Neamt",
+"city": "Romania",
+"postalCode": "Romania",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Neamt",
+"city": "",
+"postalCode": "Romania",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Roman",
+"city": "Neamt",
+"postalCode": "Romania",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Târgu",
+"city": "Neamt",
+"postalCode": "Romania",
+"streetLine": ""
+},
+{
+"country": "Neamt",
+"state": "Târgu",
+"city": "",
+"postalCode": "Romania",
+"streetLine": ""
+},
+{
+"country": "Neamt",
+"state": "",
+"city": "Târgu",
+"postalCode": "Romania",
+"streetLine": ""
+},
+{
+"country": "Neamt",
+"state": "Neamt",
+"city": "Târgu",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Yorshire",
+"state": "Scotland",
+"city": "Niuport",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Scotland",
+"state": "",
+"city": "",
+"postalCode": "Niuport",
+"streetLine": "Yoshire"
+},
+{
+"country":"Herefordshire",
+"state":"Herefordshire",
+"city":"",
+"postalCode":"Romania",
+"streetLine":"Hereford"
+},
+{
+"country": "Romania",
+"state": "Municipiul Cluj-Napoca",
+"city": "",
+"postalCode": "Cluj",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Municipiul Cluj",
+"city": "Cluj-Napoca",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Cluj-Napoca",
+"city": "Cluj",
+"postalCode": "",
+"streetLine": "Romania"
+},
+{
+"country": "Cluj",
+"state": "Romania",
+"city": "Napoca",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Municipiul Arad",
+"state": "Arad",
+"city": "",
+"postalCode": "Romania",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Arad",
+"city": "Romania",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Arad",
+"state": "",
+"city": "Romania",
+"postalCode": "Arad",
+"streetLine": ""
+},
+{
+"country": "Romania",
+"state": "Arad",
+"city": "",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Bacau",
+"state": "Bacau",
+"city": "Municipiul ",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Bacau",
+"city": "Bacau",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Bacau",
+"city": "",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Bacau",
+"state": "",
+"city": "Bacau",
+"postalCode": "",
+"streetLine": "Romania"
+},
+{
+"country": "Romania",
+"state": "Bacau",
+"city": "Comanesti",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Romania",
+"city": "Bacau",
+"postalCode": "Comãnesti",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "",
+"city": "Comãnesti",
+"postalCode": "Romania",
+"streetLine": ""
+},
+{
+"country": "Romania",
+"state": "",
+"city": "Comãnesti",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Comuna Comanesti",
+"state": "Suceava",
+"city": "",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Romania",
+"state": "Suceava",
+"city": "Comanesti",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Suceava",
+"state": "Comanesti",
+"city": "",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Romania",
+"state": "Bihor",
+"city": "Municipiul Beius",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Bihor",
+"state": "Romania",
+"city": "Beius",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Beius",
+"city": "Romania",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "",
+"state": "Beius",
+"city": "Bihor",
+"postalCode": "",
+"streetLine": ""
 }
 ]

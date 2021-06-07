@@ -19,8 +19,6 @@ import java.util.List;
  */
 @Slf4j
 public class JSONAddressCorrect {
-    public static final String ADDRESSES_PATH = "resources/in/tests/addresses.txt";
-    public static final String CORRECTED_ADDRESSES_PATH = "resources/in/tests/correct-addresses.txt";
 
     /**
      * method that gets the number of addresses right corrected from
@@ -28,10 +26,10 @@ public class JSONAddressCorrect {
      *
      * @return the number of addresses right corrected
      */
-    public static CorrectAddressBenchmark getNumberOfRightAddresses() {
+    public static CorrectAddressBenchmark getNumberOfRightAddresses(String addresses_path, String corrected_addresses_path, boolean debugPrint) {
         CorrectAddressBenchmark correctAddressBenchmark = new CorrectAddressBenchmark();
-        List<Address> addresses = readFromJSON(ADDRESSES_PATH);
-        List<Address> expectedAddresses = readFromJSON(CORRECTED_ADDRESSES_PATH);
+        List<Address> addresses = readFromJSON(addresses_path);
+        List<Address> expectedAddresses = readFromJSON(corrected_addresses_path);
         int count = 0;
 
         long startTime = 0;
@@ -43,6 +41,9 @@ public class JSONAddressCorrect {
                 List<Address> correctedAddresses = correctAddress.correctAddress(address);
                 if (correctedAddresses.contains(expectedAddresses.get(i))) {
                     count++;
+                } else
+                if(debugPrint) {
+                    log.info(address.toString());
                 }
             }
         }
@@ -88,4 +89,18 @@ public class JSONAddressCorrect {
         return address;
     }
 
+    /**
+     * method to print the test Report
+     *
+     * @param reportTitle             report title
+     * @param correctAddressBenchmark address benchmark
+     */
+    public static void printLogs(String reportTitle, CorrectAddressBenchmark correctAddressBenchmark) {
+        log.info(reportTitle);
+        log.info("Number of addresses: " + correctAddressBenchmark.getNrOfAddresses());
+        log.info("Number of addresses corrected: " + correctAddressBenchmark.getNrOfCorrectedAddresses());
+        log.info("Time to correct: {}", String.format("%.2f ms", correctAddressBenchmark.getCorrectTimeAllMilisec()));
+        log.info("Average time to correct an address: {}", String.format("%.2f ms", correctAddressBenchmark.calculateAverageTimeCorrectAddress()));
+
+    }
 }

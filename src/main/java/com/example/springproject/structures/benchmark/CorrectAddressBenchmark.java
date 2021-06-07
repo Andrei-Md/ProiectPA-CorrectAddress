@@ -10,9 +10,20 @@ public class CorrectAddressBenchmark {
     private int nrOfCorrectedAddresses=0;
     private long timeCorrectAll=0;
 
+    /**
+     * method to calculate the average time based on total number of addressed parsed
+     * @return the average time to correct an address
+     */
+    public double calculateAverageTimeCorrectAddress() {
+        return ((double) timeCorrectAll / nrOfAddresses) / Math.pow(10, 6);
+    }
 
-    public long calculateAverageTimeCorrectAddress(){
-        return (long) timeCorrectAll/nrOfAddresses;
+    /**
+     * method to convert the total time in milliseconds
+     * @return the total time in milliseconds
+     */
+    public double getCorrectTimeAllMilisec() {
+        return timeCorrectAll / Math.pow(10, 6);
     }
 
 }

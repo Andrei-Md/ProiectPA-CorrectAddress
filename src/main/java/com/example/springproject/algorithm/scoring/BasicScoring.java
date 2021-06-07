@@ -78,8 +78,8 @@ public class BasicScoring implements AddressScoring {
         if (bonus == BONUS_SAME_POSITION) {
             bonus = applyBonusPenalty(bonus, scoredAddress, administrationFields.get(superDivision.getLevel()).get(index).getUniqueIdentifier());
             ScoredAdmUnit newScoredAdmUnit =  new ScoredAdmUnit(superDivision, administrationFields.get(superDivision.getLevel()).get(index).getUniqueIdentifier());
-            newScoredAdmUnit.setScores(superDivision.getLevel(), administrationFields.get(superDivision.getLevel()).get(index).getScores().get(index) + bonus);
-            scoredAddress.setScoreBasedOnLevel(superDivision.getLevel(), newScoredAdmUnit, administrationFields.get(superDivision.getLevel()).get(index).getScores().get(index) + bonus);
+            newScoredAdmUnit.setScores(superDivision.getLevel(), administrationFields.get(superDivision.getLevel()).get(index).getScores().get(superDivision.getLevel()) + bonus);
+            scoredAddress.setScoreBasedOnLevel(superDivision.getLevel(), newScoredAdmUnit, newScoredAdmUnit.getScores().get(newScoredAdmUnit.getAdministrativeUnit().getLevel()));
         } else {
             bonus = applyBonusPenalty(bonus, scoredAddress, scoredAdmUnit.getUniqueIdentifier());
             ScoredAdmUnit newScoredAdmUnit = new ScoredAdmUnit(superDivision, scoredAdmUnit.getUniqueIdentifier());
