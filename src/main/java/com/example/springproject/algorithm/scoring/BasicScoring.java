@@ -37,9 +37,9 @@ public class BasicScoring implements AddressScoring {
             AdministrativeUnit administrativeUnit = scoredAdmUnit.getAdministrativeUnit();
             ScoredAddress scoredAddress = new ScoredAddress();
             int bonus = 0;
-            Pair<Integer, Integer> bonusPair;
 
-            bonusPair = computeBonusBasedOnDistances(basicAddress.getAllAdmUnitNames(), scoredAdmUnit.getAdministrativeUnit().getParsedName(), BONUS_INTERCROSSING_POSITION, BONUS_INTERCROSSING_POSITION_INCREMENT);
+
+            Pair<Integer, Integer> bonusPair = computeBonusBasedOnDistances(basicAddress.getAllAdmUnitNames(), scoredAdmUnit.getAdministrativeUnit().getParsedName(), BONUS_INTERCROSSING_POSITION, BONUS_INTERCROSSING_POSITION_INCREMENT);
             bonus = bonusPair.getKey();
             bonus = applyBonusPenalty(bonus, scoredAddress, scoredAdmUnit.getUniqueIdentifier());
             if(scoredAdmUnit.getScores().get(NO_UNIT_ADM_MAX - 1) == 20){
@@ -60,8 +60,8 @@ public class BasicScoring implements AddressScoring {
             }
             scoredAddress.computeTotal();
             scoredAddresses.add(scoredAddress);
-//            }
-        }
+            }
+//        }
         return getBestScoredAddress(scoredAddresses);
 
     }

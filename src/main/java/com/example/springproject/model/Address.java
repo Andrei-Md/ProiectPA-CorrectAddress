@@ -19,6 +19,10 @@ public class Address {
         this.streetLine = streetLine;
     }
 
+    public Address() {
+
+    }
+
     @Override
     public String toString() {
         return "Address: " + '\n' +

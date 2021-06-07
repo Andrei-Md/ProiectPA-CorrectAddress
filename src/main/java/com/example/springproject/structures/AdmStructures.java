@@ -1,5 +1,7 @@
 package com.example.springproject.structures;
 
+import com.example.springproject.structures.benchmark.CorrectAddressBenchmark;
+import com.example.springproject.structures.benchmark.JSONAddressCorrect;
 import com.example.springproject.structures.entities.AdministrativeHierarchy;
 import com.example.springproject.structures.entities.AdministrativeUnitUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +30,16 @@ public class AdmStructures implements ApplicationRunner {
         //create internal structures
         log.info("Initializing Internal Administrative Structures");
         administrativeHierarchy = AdministrativeUnitUtil.loadAdministrativeHierarchy(AdministrativeUnitUtil.ADMINISTRATIVE_UNIT_SERIALIZE_PATH);
+        if(args.getSourceArgs().length>0) {
+            if(args.getSourceArgs()[0].equalsIgnoreCase("test")){
+                CorrectAddressBenchmark correctAddressBenchmark = JSONAddressCorrect.getNumberOfRightAddresses();
+                log.info("Number of addresses: " + correctAddressBenchmark.getNrOfAddresses());
+                log.info("Number of addresses corrected: " + correctAddressBenchmark.getNrOfCorrectedAddresses());
+                log.info("Time to correct: " + correctAddressBenchmark.getTimeCorrectAll());
+                log.info("Average time to correct an address: " + correctAddressBenchmark.calculateAverageTimeCorrectAddress());
+
+            }
+        }
     }
 
 }
