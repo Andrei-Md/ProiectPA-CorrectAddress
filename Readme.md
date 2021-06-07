@@ -45,7 +45,15 @@ body:
 
 ***
 ## Deploy
-The application was deployed on heroku: https://dashboard.heroku.com/apps/proiect-pa-correct-address
+The application was deployed on heroku: https://correct-address-project.herokuapp.com
+
+https://devcenter.heroku.com/articles/deploying-java
+
+```
+heroku create <name>
+git push heroku main
+```
+
 
 ### Example of use:
 Post Method:\
