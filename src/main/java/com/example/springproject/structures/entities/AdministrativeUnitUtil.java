@@ -16,26 +16,12 @@ import java.io.*;
 import java.util.*;
 
 import static com.example.springproject.algorithm.util.ScoreUtil.NO_UNIT_ADM_MAX;
+import static com.example.springproject.structures.GlobalUtil.*;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 public class AdministrativeUnitUtil {
 
-    public final static String ADMINISTRATIVE_UNIT_SERIALIZE_PATH = "resources/saves/administrative-unit.ser";
-    private final static String FILE_PATH_HIERARCHY = "resources/in/hierarchy.csv";
-    private final static String FILE_PATH_CITIES = "resources/in/cities.csv";
-    private final static char HIERARCHY_DELIM = ',';
-    private final static char CITIES_DELIM = '|';
-    private final static String ALTERNATE_NAMES_DELIM = ",";
-    private final static String[] ADMINISTRATIVE_NAME = {"comuna", "municipiul", "oras", "jud."};
-    private final static String ADMINISTRATIVE_UNIT_DELIMITERS = " |-";
-    private final static String[] ADMINISTRATIVE_UNIT_DELIMITER_LIST = {" ", "-"};
-    private final static int ADMINISTRATIVE_UNIT_NAME_MIN_CHARS_NO = 4;
-    private final static List<String> ROOT_LIST = new ArrayList() {{
-        add("6269131"); //England
-        add("798549"); //Romania
-        add("2641364"); //Northen Ireland
-        add("2634895"); //Wales
-        add("2638360"); //Scotland
-    }};
 
     /**
      * method used to load the serialized entity
@@ -151,7 +137,7 @@ public class AdministrativeUnitUtil {
             return;
         for (String key : administrativeUnitMap.keySet()) {
             AdministrativeUnit currentAdmUnit = administrativeUnitMap.get(key);
-            String admUnitName = parseString(currentAdmUnit, ADMINISTRATIVE_NAME);
+            String admUnitName = parseString(currentAdmUnit, ADMINISTRATIVE_NAME_PREFIX, ADMINISTRATIVE_NAME_SUFFIX);
             List<String> nameList = parseName(admUnitName, ADMINISTRATIVE_UNIT_DELIMITERS, ADMINISTRATIVE_UNIT_DELIMITER_LIST, ADMINISTRATIVE_UNIT_NAME_MIN_CHARS_NO);
             String code = null;
             for (String name : nameList) {
@@ -185,7 +171,7 @@ public class AdministrativeUnitUtil {
         }
         if (tokens != null) {
             for (String name : tokens) {
-                if(name.length() >= chars_no)
+                if (name.length() >= chars_no)
                     nameList.add(name);
             }
         }
@@ -198,15 +184,23 @@ public class AdministrativeUnitUtil {
      * @param currentAdmUnit current administrative unit
      * @return a string with the corrected name
      */
-    private static String parseString(AdministrativeUnit currentAdmUnit, String[] administrativeNameList) {
+    private static String parseString(AdministrativeUnit currentAdmUnit, String[] administrativeNameListPrefix, String[] administrativeNameListSuffix) {
         String admUnitParsedName = currentAdmUnit.getAsciiName();
-        for (String admName : administrativeNameList) {
+        for (String admName : administrativeNameListPrefix) {
             if (currentAdmUnit.getAsciiName().toLowerCase().startsWith(admName)) {
-                admUnitParsedName = admUnitParsedName.substring(admName.length() + 1);
+                admUnitParsedName = admUnitParsedName.substring(min(admName.length() + 1, admUnitParsedName.length()));
                 currentAdmUnit.setParsedName(admUnitParsedName);
                 return admUnitParsedName;
             }
         }
+        for (String admName : administrativeNameListSuffix) {
+            if (currentAdmUnit.getAsciiName().toLowerCase().endsWith(admName)) {
+                admUnitParsedName = admUnitParsedName.substring(0, max(admUnitParsedName.length() - admName.length() - 1, 0));
+                currentAdmUnit.setParsedName(admUnitParsedName);
+                return admUnitParsedName;
+            }
+        }
+
         return admUnitParsedName;
     }
 
@@ -258,7 +252,7 @@ public class AdministrativeUnitUtil {
                 HashSet<String> newSubdivisonSet = new HashSet<>(administrativeHierarchy.getAdministrativeUnitHierarchy().get(code));
                 createHierarchy(administrativeHierarchy, administrativeUnitMapAll, currentAdmUnit, newSubdivisonSet, level + 1);
             }
-        }catch (Throwable e){
+        } catch (Throwable e) {
             System.out.println(superdivisionAdmUnit.getAsciiName());
             e.printStackTrace();
         }

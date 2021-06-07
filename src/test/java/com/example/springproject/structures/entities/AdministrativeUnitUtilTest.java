@@ -1,5 +1,6 @@
 package com.example.springproject.structures.entities;
 
+import com.example.springproject.structures.GlobalUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
@@ -9,17 +10,17 @@ class AdministrativeUnitUtilTest {
 
     @Test
     void loadAdministrativeHierarchy() {
-        assertDoesNotThrow(() -> AdministrativeUnitUtil.loadAdministrativeHierarchy(AdministrativeUnitUtil.ADMINISTRATIVE_UNIT_SERIALIZE_PATH));
+        assertDoesNotThrow(() -> AdministrativeUnitUtil.loadAdministrativeHierarchy(GlobalUtil.ADMINISTRATIVE_UNIT_SERIALIZE_PATH));
     }
 
     @Test
     void saveAdministrativeHierarchy() {
-        AdministrativeHierarchy administrativeHierarchy = AdministrativeUnitUtil.loadAdministrativeHierarchy(AdministrativeUnitUtil.ADMINISTRATIVE_UNIT_SERIALIZE_PATH);
+        AdministrativeHierarchy administrativeHierarchy = AdministrativeUnitUtil.loadAdministrativeHierarchy(GlobalUtil.ADMINISTRATIVE_UNIT_SERIALIZE_PATH);
         assertDoesNotThrow(() -> AdministrativeUnitUtil.saveAdministrativeHierarchy(administrativeHierarchy));
     }
 
     @Test
     void serializeAdministrativeHierarchy() {
-        assertDoesNotThrow(() -> AdministrativeUnitUtil.serializeAdministrativeHierarchy(AdministrativeUnitUtil.ADMINISTRATIVE_UNIT_SERIALIZE_PATH));
+        assertDoesNotThrow(() -> AdministrativeUnitUtil.serializeAdministrativeHierarchy(GlobalUtil.ADMINISTRATIVE_UNIT_SERIALIZE_PATH));
     }
 }
