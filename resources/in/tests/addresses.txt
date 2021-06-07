@@ -1,0 +1,65 @@
+[
+{
+"country": "Romania",
+"state": "",
+"city": "Craiova",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Pascani",
+"state": "Romania",
+"city": "Iassi",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Hunself",
+"state": "",
+"city": "",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Romania",
+"state": "Neamt",
+"city": "Piatra",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Romania",
+"state": "Neamt",
+"city": "Roma",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Romania",
+"state": "Neamt",
+"city": "Piatra",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Romania",
+"state": "Neamt",
+"city": "Oras",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Romania",
+"state": "Neamt",
+"city": "Municipiul",
+"postalCode": "",
+"streetLine": ""
+},
+{
+"country": "Monkhopton",
+"state": "England",
+"city": "Shropshire",
+"postalCode": "",
+"streetLine": ""
+}
+]
