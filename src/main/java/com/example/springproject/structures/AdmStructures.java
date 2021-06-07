@@ -34,11 +34,11 @@ public class AdmStructures implements ApplicationRunner {
         administrativeHierarchy = AdministrativeUnitUtil.loadAdministrativeHierarchy(GlobalUtil.ADMINISTRATIVE_UNIT_SERIALIZE_PATH);
         if (args.getSourceArgs().length > 0) {
             if (args.getSourceArgs()[0].equalsIgnoreCase("test")) {
-                CorrectAddressBenchmark correctAddressBenchmark = JSONAddressCorrect.getNumberOfRightAddresses(ADDRESSES_PATH, CORRECTED_ADDRESSES_PATH, true);
-                JSONAddressCorrect.printLogs("Shuffle addresses Report:\n", correctAddressBenchmark);
+                CorrectAddressBenchmark correctAddressBenchmark = JSONAddressCorrect.getNumberOfRightAddresses(ADDRESSES_PATH, CORRECTED_ADDRESSES_PATH, false);
+                JSONAddressCorrect.printLogs("Shuffle addresses Report:", correctAddressBenchmark);
 
                 CorrectAddressBenchmark correctAddressBenchmarkFuzzy = JSONAddressCorrect.getNumberOfRightAddresses(ADDRESSES_FUZZY_PATH, CORRECTED_ADDRESSES_FUZZY_PATH, false);
-                JSONAddressCorrect.printLogs("Fuzzy addresses Report:\n", correctAddressBenchmarkFuzzy);
+                JSONAddressCorrect.printLogs("Fuzzy addresses Report:", correctAddressBenchmarkFuzzy);
             }
         }
     }

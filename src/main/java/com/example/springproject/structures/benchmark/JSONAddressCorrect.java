@@ -97,10 +97,9 @@ public class JSONAddressCorrect {
      */
     public static void printLogs(String reportTitle, CorrectAddressBenchmark correctAddressBenchmark) {
         log.info(reportTitle);
-        log.info("Number of addresses: " + correctAddressBenchmark.getNrOfAddresses());
-        log.info("Number of addresses corrected: " + correctAddressBenchmark.getNrOfCorrectedAddresses());
-        log.info("Time to correct: {}", String.format("%.2f ms", correctAddressBenchmark.getCorrectTimeAllMilisec()));
-        log.info("Average time to correct an address: {}", String.format("%.2f ms", correctAddressBenchmark.calculateAverageTimeCorrectAddress()));
-
+        log.info("\tNumber of addresses: " + correctAddressBenchmark.getNrOfAddresses());
+        log.info("\tNumber of addresses corrected: " + correctAddressBenchmark.getNrOfCorrectedAddresses());
+        log.info("\tTime to correct: {}", String.format("%.2f ms", correctAddressBenchmark.getCorrectTimeAllMilisec()));
+        log.info("\tAverage time to correct an address: {}", String.format("%.2f ms", correctAddressBenchmark.calculateAverageTimeCorrectAddress()));
     }
 }

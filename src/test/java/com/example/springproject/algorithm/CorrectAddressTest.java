@@ -35,8 +35,8 @@ class CorrectAddressTest {
     }
 
     public static Stream<Arguments> correctAddress(){
-        Address address = new Address("Pascani","Iassi", "Romania","", "");
-        Address correctAddress = new Address("România","Iași","Municipiul Paşcani", "","");
+        Address address = new Address("Essex","Tendring District", "England","", "");
+        Address correctAddress = new Address("England","Essex","Tendring District", "","");
         return Stream.of(Arguments.of(address,correctAddress));
     }
 
